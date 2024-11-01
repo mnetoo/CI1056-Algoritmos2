@@ -1,16 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "funções.h"
-
 
 #define TAM 1024    // Tamanho do vetor
 #define MAX_VAL 2048 // Valor máximo para os números aleatórios
 
+
 int contagemTrocas = 0;      // Variável global para contar trocas
 int contagemComparacoes = 0; // Variável global para contar comparações
 
-
-/*===========================================================================================================*/
 
 
 // Preenche um vetor de inteiros com valores aleatórios entre 0 e 2048
@@ -20,25 +17,6 @@ void geraVetor(int vetor[])
         vetor[i] = rand() % (MAX_VAL + 1); // Gera números aleatórios entre 0 e 2048
     }
 }
-
-
-/*===========================================================================================================*/
-
-
-
-// Função para imprimir uma linha de separação
-void linhaSeparacao() {
-    printf("\n");
-    printf("______________________________________________________________________________________");
-    printf("\n");
-    printf("\n");
-}
-
-
-
-/*===========================================================================================================*/
-
-
 
 
 // Imprime um vetor de inteiros
@@ -54,23 +32,6 @@ void imprimeVetor(int vetor[], int n)
 }
 
 
-/*===========================================================================================================*/
-
-// Exibe o menu de opções
-void menu() {
-    printf("\n--- Menu de Opções ---\n");
-    printf("1. Somar\n");
-    printf("2. Subtrair\n");
-    printf("3. Multiplicar\n");
-    printf("4. Dividir\n");
-    printf("0. Sair\n");
-    printf("Escolha uma opção: ");
-}
-
-
-/*===========================================================================================================*/
-
-
 // Troca o conteúdo de duas variáveis
 void trocar(int *a, int *b) 
 {
@@ -79,20 +40,6 @@ void trocar(int *a, int *b)
     *b = temp;
     contagemTrocas++;
 }
-
-
-/*==========================================================================================================================*/
-
-
-void exibirContagens(char *metodo) {
-    printf("\n[%s] Contagem de trocas: %d\n", metodo, contagemTrocas);
-    printf("[%s] Contagem de comparações: %d\n", metodo, contagemComparacoes);
-}
-
-
-/*================================================ [QUICK SORT] ===========================================================*/
-
-//                                UTILIZANDO O ÚLTIMO ELEMENTO DO VETOR COMO PIVÔ
 
 
 // Particiona o vetor de forma que os elementos menores que o pivô fiquem à esquerda e os maiores à direita
@@ -123,10 +70,14 @@ void quickSortUltimo(int vetor[], int inicio, int fim)
         quickSortUltimo(vetor, indicePivo + 1, fim);
     }
 }
-/*===========================================================================================================*/
-/*===========================================================================================================*/
 
-//                              UTILIZANDO A MEDIANA DE TRÊS ELEMENTOS DO VETOR
+
+
+
+
+
+
+
 
 // Escolhe o pivô como a mediana de três (primeiro, meio e último elementos)
 int medianaDeTres(int vetor[], int inicio, int fim) 
@@ -176,13 +127,9 @@ void quickSortMedianaDeTres(int vetor[], int inicio, int fim)
 
 
 
-/*================================================ [SHELL SORT] ===========================================================*/
 
 
-//                                      UTILIZANDO A SEQUÊNCIA DE KNUTH
 
-
-//Ordena o vetor utilizando o método shellsort com a sequência de Knuth
 void shellSortKnuth(int vetor[], int n) 
 {
     int gap = 1;
@@ -212,11 +159,6 @@ void shellSortKnuth(int vetor[], int n)
     }
 }
 
-
-/*===========================================================================================================*/
-
-
-//                                      UTILIZANDO A SEQUÊNCIA DE HIBBARD
 
 
 // Ordena o vetor utilizando o método shellsort com a sequência de Hibbard
@@ -250,36 +192,7 @@ void shellSortHibbard(int vetor[], int n)
 
 
 
-/*===========================================================================================================*/
 
-
-//                                      UTILIZANDO O SELECTION SORT
-
-
-// Ordena o vetor utilizando o método Selection Sort
-void selectionSort(int vetor[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        int indiceMenor = i;  // Assume que o primeiro elemento não ordenado é o menor
-        for (int j = i + 1; j < n; j++) {
-            contagemComparacoes++;  // Incrementa a contagem de comparações
-            // Atualiza o índice do menor elemento encontrado
-            if (vetor[j] < vetor[indiceMenor]) {
-                indiceMenor = j;
-            }
-        }
-        // Troca o menor elemento encontrado com o primeiro elemento não ordenado
-        if (indiceMenor != i) {
-            trocar(&vetor[i], &vetor[indiceMenor]);  // Chama a função de troca
-        }
-    }
-}
-
-
-
-/*====================================== [ALGORITMOS DE PESQUISA] =================================================*/
-
-
-//                                    ALGORITMO DE BUSCA SEQUENCIAL
 
 
 // Função para buscar um elemento sequencialmente no vetor e contar as comparações
@@ -336,10 +249,17 @@ void realizarBuscaSequencial(int vetor[], int tamanho) {
 
 
 
-/*===========================================================================================================*/
 
 
-//                                       ALGORITMO DE BUSCA BINÁRIA
+
+
+
+
+
+
+
+
+
 
 
 // Função de busca binária no vetor ordenado
@@ -402,4 +322,195 @@ void realizarBuscaBinaria(int vetor[], int tamanho) {
 }
 
 
-/*===========================================================================================================*/
+
+
+
+
+void exibirContagens(char *metodo) {
+    printf("\n[%s] Contagem de trocas: %d\n", metodo, contagemTrocas);
+    printf("[%s] Contagem de comparações: %d\n", metodo, contagemComparacoes);
+}
+
+
+
+
+
+
+// Função para imprimir uma linha de separação
+void linhaSeparacao() {
+    printf("\n");
+    printf("______________________________________________________________________________________");
+    printf("\n");
+    printf("\n");
+}
+
+
+
+
+
+
+
+// Ordena o vetor utilizando o método Selection Sort
+void selectionSort(int vetor[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int indiceMenor = i;  // Assume que o primeiro elemento não ordenado é o menor
+        for (int j = i + 1; j < n; j++) {
+            contagemComparacoes++;  // Incrementa a contagem de comparações
+            // Atualiza o índice do menor elemento encontrado
+            if (vetor[j] < vetor[indiceMenor]) {
+                indiceMenor = j;
+            }
+        }
+        // Troca o menor elemento encontrado com o primeiro elemento não ordenado
+        if (indiceMenor != i) {
+            trocar(&vetor[i], &vetor[indiceMenor]);  // Chama a função de troca
+        }
+    }
+}
+
+
+
+
+
+
+
+
+int main() 
+{
+    int v[TAM];
+    int n;
+    
+    // Gera um vetor com valores aleatórios
+    geraVetor(v);
+
+
+    printf("Iniciando o programa...\n");
+    printf("Digite o tamanho do vetor que quer visualizar: ");
+    scanf("%d", &n);
+    printf("Vetor antes da ordenação:\n");
+    imprimeVetor(v, n);
+    linhaSeparacao();
+
+
+
+
+
+    // Copia o vetor original para manter o estado inicial antes de aplicar o próximo QuickSort
+    int v1[TAM];
+    for (int i = 0; i < TAM; i++) v1[i] = v[i];
+
+    // **QuickSort com o último elemento como pivô**
+    contagemTrocas = contagemComparacoes = 0;
+    quickSortUltimo(v1, 0, TAM - 1);
+
+    // Imprime o vetor após a ordenação com o último elemento como pivô
+    printf("\nVetor após a ordenação com último elemento como pivô\n");
+    printf("Digite o tamanho do vetor que quer visualizar: ");
+    scanf("%d", &n);
+    imprimeVetor(v, n);
+    exibirContagens("QuickSort - Último Pivô");
+    linhaSeparacao();
+    
+
+
+
+
+
+    // Copia o vetor original novamente para manter o estado inicial antes de aplicar o próximo QuickSort
+    int v2[TAM];
+    for (int i = 0; i < TAM; i++) v2[i] = v[i];
+
+    // **QuickSort com a mediana de três como pivô**
+    contagemTrocas = contagemComparacoes = 0;
+    quickSortMedianaDeTres(v2, 0, TAM - 1);
+
+    // Imprime o vetor após a ordenação com a mediana de três como pivô
+    printf("\nVetor após a ordenação com mediana de três como pivô\n");
+    printf("Digite o tamanho do vetor que quer visualizar: ");
+    scanf("%d", &n);
+    imprimeVetor(v2, n);
+    exibirContagens("QuickSort - Mediana de Três");
+    linhaSeparacao();
+
+
+
+
+
+    // Copia o vetor original para manter o estado inicial antes de aplicar o próximo ShellSort
+    int v3[TAM];
+    for (int i = 0; i < TAM; i++) v3[i] = v[i];
+
+    // **ShellSort com a sequência de Knuth**
+    contagemTrocas = contagemComparacoes = 0;
+    shellSortKnuth(v3, TAM);
+
+    // Imprime o vetor após a ordenação com a sequência de Knuth
+    printf("\nVetor após a ordenação com sequência de Knuth\n");
+    printf("Digite o tamanho do vetor que quer visualizar: ");
+    scanf("%d", &n);
+    imprimeVetor(v3, n);
+    exibirContagens("ShellSort - Sequência de Knuth");
+    linhaSeparacao();
+
+
+
+
+
+
+
+
+    // Copia o vetor original para manter o estado inicial antes de aplicar o próximo ShellSort
+    int v4[TAM];
+    for (int i = 0; i < TAM; i++) v4[i] = v[i];
+
+    // **ShellSort com a sequência de Hibbard**
+    contagemTrocas = contagemComparacoes = 0;
+    shellSortHibbard(v4, TAM);
+
+    // Imprime o vetor após a ordenação com a sequência de Hibbard
+    printf("\nVetor após a ordenação com sequência de Hibbard\n");
+    printf("Digite o tamanho do vetor que quer visualizar: ");
+    scanf("%d", &n);
+    imprimeVetor(v4, n);
+    exibirContagens("ShellSort - Sequência de Hibbard");
+    linhaSeparacao();
+
+
+
+
+
+
+
+
+
+
+
+    // Copia o vetor original para manter o estado inicial antes de aplicar o próximo ShellSort
+    int v5[TAM];
+    for (int i = 0; i < TAM; i++) v5[i] = v[i];
+
+    // **SelectionSort**
+    contagemTrocas = contagemComparacoes = 0;
+    selectionSort(v5, TAM);
+    // Imprime o vetor após a ordenação com a sequência de Hibbard
+    printf("\nVetor após a ordenação com Selection Sort\n");
+    printf("Digite o tamanho do vetor que quer visualizar: ");
+    scanf("%d", &n);
+    imprimeVetor(v5, n);
+    exibirContagens("SelectionSort");
+    linhaSeparacao();
+
+
+
+
+
+
+
+     // Realiza a busca sequencial com opção de entrada do usuário ou número aleatório
+    realizarBuscaSequencial(v, TAM);
+    linhaSeparacao();
+    realizarBuscaBinaria(v4, TAM);
+    linhaSeparacao();
+
+    return 0;
+}

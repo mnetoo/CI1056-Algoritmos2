@@ -28,6 +28,13 @@ void imprimeVetor(int vetor[], int n);
 // Função que troca o conteúdo de duas variáveis
 void trocar(int *a, int *b);
 
+//exibe as contagens de trocas e comparações
+void exibirContagens(char *metodo);
+
+// Função para imprimir uma linha de separação
+void linhaSeparacao();
+
+
 
 /*================================================================================================================*/
 
@@ -38,9 +45,6 @@ void trocar(int *a, int *b);
 int particionarUltimo(int vetor[], int inicio, int fim);
 
 void quickSortUltimo(int vetor[], int inicio, int fim);
-
-
-/*================================================================================================================*/
 
 
                     /* QUICK SORT UTILIZANDO A MEDIANA DE TRÊS ELEMENTOS DO VETOR */
@@ -60,14 +64,35 @@ void quickSortMedianaDeTres(int vetor[], int inicio, int fim);
 void shellSortHibbard(int vetor[], int n);
 
 
-/*================================================================================================================*/
-
-
                     /* SHELL SORT UTILIZANDO A SEQUÊNCIA DE KNUTH */
 
 void shellSortKnuth(int vetor[], int n);
 
 
 /*================================================================================================================*/
+
+
+void selectionSort(int vetor[], int n);
+
+
+/*================================================================================================================*/
+
+
+int buscaSequencial(int vetor[], int tamanho, int elemento, int *contagemComparacoes);
+
+void realizarBuscaSequencial(int vetor[], int tamanho);
+
+
+/*================================================================================================================*/
+
+
+int buscaBinaria(int vetor[], int tamanho, int elemento, int *contagemComparacoes);
+
+void realizarBuscaBinaria(int vetor[], int tamanho);
+
+
+
+/*================================================================================================================*/
+
 
 #endif
