@@ -34,6 +34,9 @@ void exibirContagens(char *metodo);
 // Função para imprimir uma linha de separação
 void linhaSeparacao();
 
+// Função para gerar menu interativo
+void menu (int v[], int opcao, char []) ;
+
 
 
 /*================================================================================================================*/
