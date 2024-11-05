@@ -4,14 +4,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include <stdbool.h>
 
 
 #define TAM 1024    // Tamanho do vetor
 #define MAX_VAL 2048 // Valor máximo para os números aleatórios
+#define MAX_NUM 100000 // Valor máximo para os números aleatórios
 
 
-extern int contagemTrocas;      // Variáveis globais
-extern int contagemComparacoes;
+extern int contagemTrocas; // Variáveis globais
+extern int contagemComparacoes; // Variáveis globais
+
 
 /*================================================================================================================*/
 
@@ -20,7 +25,10 @@ extern int contagemComparacoes;
 void geraVetor(int vetor[]);
 
 // Função que exibe o menu de opções
-void menu();
+int menu();
+
+// Função que executa a operação com base na opção escolhida
+void program(int opcao);
 
 // Função que imprime um vetor de inteiros
 void imprimeVetor(int vetor[], int n);
@@ -33,10 +41,6 @@ void exibirContagens(char *metodo);
 
 // Função para imprimir uma linha de separação
 void linhaSeparacao();
-
-// Função para gerar menu interativo
-void menu (int v[], int opcao, char []) ;
-
 
 
 /*================================================================================================================*/
@@ -85,6 +89,8 @@ int buscaSequencial(int vetor[], int tamanho, int elemento, int *contagemCompara
 
 void realizarBuscaSequencial(int vetor[], int tamanho);
 
+void BuscaSequencialAleat(int vetor[], int tamanho, int *comparacoes);
+
 
 /*================================================================================================================*/
 
@@ -92,6 +98,8 @@ void realizarBuscaSequencial(int vetor[], int tamanho);
 int buscaBinaria(int vetor[], int tamanho, int elemento, int *contagemComparacoes);
 
 void realizarBuscaBinaria(int vetor[], int tamanho);
+
+void BuscaBinariaAleat(int vetor[], int tamanho, int *comparacoes);
 
 
 

@@ -1,24 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
-#include "funções.h"
+#include <time.h>
+#include <stdbool.h>
+#include <math.h>
+#include "funções.h" 
 
-
-#define TAM 1024    // Tamanho do vetor
-#define MAX_VAL 2048 // Valor máximo para os números aleatórios
-
-int contagemTrocas = 0;      // Variável global para contar trocas
-int contagemComparacoes = 0; // Variável global para contar comparações
-
-
-
-/*===========================================================================================================*/
-
-// Inicializa a semente com o tempo atual
-void inicializaAleatorio() {
-    srand(time(NULL));
-}
 
 
 /*===========================================================================================================*/
@@ -37,21 +24,6 @@ void geraVetor(int vetor[])
 
 
 
-// Função para imprimir uma linha de separação
-void linhaSeparacao() {
-    printf("\n");
-    printf("______________________________________________________________________________________");
-    printf("\n");
-    printf("\n");
-}
-
-
-
-/*===========================================================================================================*/
-
-
-
-
 // Imprime um vetor de inteiros
 void imprimeVetor(int vetor[], int n) 
 {
@@ -65,781 +37,324 @@ void imprimeVetor(int vetor[], int n)
 }
 
 
+
+/*===========================================================================================================*/
+
+
+// Função auxiliar para calcular a média
+double calcularMedia(int valores[], int numExecucoes) {
+    int soma = 0;
+    for (int i = 0; i < numExecucoes; i++) {
+        soma += valores[i];
+    }
+    return (double)soma / numExecucoes;
+}
+
+
+// Função auxiliar para calcular o desvio padrão
+double calcularDesvioPadrao(int valores[], int numExecucoes, double media) {
+    double somaDesvios = 0;
+    for (int i = 0; i < numExecucoes; i++) {
+        somaDesvios += pow(valores[i] - media, 2);
+    }
+    return sqrt(somaDesvios / numExecucoes);
+}
+
+
+// Função auxiliar para calcular o total de comparações
+int calcularTotalComparacoes(int valores[], int numExecucoes) {
+    int total = 0;
+    for (int i = 0; i < numExecucoes; i++) {
+        total += valores[i];
+    }
+    return total;
+}
+
+
+
 /*===========================================================================================================*/
 
 
 //                                              MENU INTERATIVO
 
 
-void menu (int v[], int opcao, char []) 
+// Função para exibir o menu e retornar a opção escolhida
+int menu() 
 {
-    int subOpcao;
-    char resposta[1];
+    int opcao;
+    static bool primeiraExecucao = true;
+
+
+    if (primeiraExecucao) 
+    {
+        printf("\n");
+        printf("                                    Bem-vindo ao Trabalho Prático da disciplina de Algoritmos II!\n");
+        printf("                                    Aqui você verá a implementação de algoritmos de ordenação e busca.\n");
+        printf("\n");
+        printf("Selecione a operação desejada:\n");
+        printf("\n");
+        primeiraExecucao = false;
+    }
 
     printf("\n");
-    printf("Bem vindo ao Trabalho Prático da disciplina de Algoritmos II!\n");
-    printf("Aqui você verá a implementação de algoritmos de ordenação e busca.\n");
-    printf("\n");
-    printf("Logo abaixo, selecione a operação desejada:\n");
-    printf("\n");
-
     printf("0. Sair\n");
-    printf("1. Ordenação\n");
-    printf("2. Busca\n");
+    printf("1. Gerar Vetor\n");
+    printf("2. QuickSort - Pivô Último\n");
+    printf("3. QuickSort - Pivô Mediana de Três\n");
+    printf("4. ShellSort - Sequência de Knuth\n");
+    printf("5. ShellSort - Sequência de Hibbard\n");
+    printf("6. SelectionSort - Quadrático\n");
+    printf("7. Busca Sequencial\n");
+    printf("8. Busca Binária\n");
+    printf("9. Executar todos os algoritmos 1000 vezes\n");
     printf("\n");
 
+    printf("Digite a opção desejada: ");
     scanf("%d", &opcao);
 
-    while (opcao != 0)
+    return opcao;
+}
+
+
+
+// Função para executar a operação com base na opção escolhida
+void program(int opcao) 
+{
+    switch (opcao) 
     {
-        if (opcao == 1)
+        case 0:
+            printf("Saindo do programa...\n");
+            break;
+
+
+        case 1:
+            int v[TAM];
+            int v1[TAM];
+
+            printf("Vetor gerado com sucesso...\n");
+            geraVetor(v);
+
+            for(int i = 0; i < TAM; i++)
+                v1[i] = v[i];
+
+            printf("Digite o tamanho do vetor que deseja visualizar: ");
+            int tamanho;
+            scanf("%d", &tamanho);
+            imprimeVetor(v, tamanho);
+            break;
+
+
+        case 2:
+            printf("Executando QuickSort com Pivô Último...\n");
+            quickSortUltimo(v, 0, TAM - 1);
+            exibirContagens("QuickSort - Pivô Último");
+            break;
+
+
+        case 3:
+            contagemComparacoes = 0;
+            contagemTrocas = 0;
+            printf("Executando QuickSort com Pivô Mediana de Três...\n");
+            quickSortMedianaDeTres(v, 0, TAM - 1);
+            exibirContagens("QuickSort - Pivô Mediana de Três");
+            break;
+
+
+        case 4:
+            contagemComparacoes = 0;
+            contagemTrocas = 0;
+            printf("Executando ShellSort com Sequência de Knuth...\n");
+            shellSortKnuth(v, TAM);
+            exibirContagens("ShellSort - Sequência de Knuth");
+            break;
+
+
+        case 5:
+            contagemComparacoes = 0;
+            contagemTrocas = 0;
+            printf("Executando ShellSort com Sequência de Hibbard...\n");
+            shellSortHibbard(v, TAM);
+            exibirContagens("ShellSort - Sequência de Hibbard");
+            break;
+
+
+        case 6:
+            contagemComparacoes = 0;
+            contagemTrocas = 0;
+            printf("Executando SelectionSort...\n");
+            selectionSort(v, TAM);
+            exibirContagens("SelectionSort");
+            break;
+
+
+        case 7:
+            contagemComparacoes = 0;
+            printf("Executando Busca Sequencial...\n");
+            realizarBuscaSequencial(v1, TAM);
+            break;
+
+
+        case 8:
+            contagemComparacoes = 0;
+            printf("Executando Busca Binária...\n");
+            realizarBuscaBinaria(v, TAM);
+            break;
+
+        case 9: 
         {
-            printf("Você escolheu a opção de ordenação.\n");
-            printf("Aqui você poderá escolher entre os algoritmos de ordenação disponíveis:\n");
-            printf("\n");
-            printf("1. QuickSort - Pivô Último Elemento\n");
-            printf("2. QuickSort - Pivô Mediana de Três\n");
-            printf("3. Shell Sort - Espaçamento com Sequência de Hibbard\n");
-            printf("4. Shell Sort - Espaçamento com Sequência de Knuth\n");
-            printf("5. Selection Sort\n");
-            printf("6. Voltar\n");
-            scanf("%d", &subOpcao);
+            const int numExecucoes = 1000;
+            int comparacoesQuickSortUltimo[numExecucoes];
+            int comparacoesQuickSortMediana[numExecucoes];
+            int comparacoesShellSortKnuth[numExecucoes];
+            int comparacoesShellSortHibbard[numExecucoes];
+            int comparacoesSelectionSort[numExecucoes];
+            int comparacoesBuscaSequencial[numExecucoes];
+            int comparacoesBuscaBinaria[numExecucoes];
 
-            if (subOpcao == 1)
-            {
-                printf("Você escolheu o QuickSort com o último elemento como pivô.\n");
-                printf("Deseja gerar um vetor? (s/n) \n");
-                printf("\n");
-                scanf("%1s", resposta);
-                if (strcmp(resposta, "s") == 0)
-                {
-                    int v[TAM];
-                    geraVetor(v);
-                    printf("Vetor gerado com sucesso!\n");
-                    printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    scanf("%d", &subOpcao);
-                    imprimeVetor(v, subOpcao);
-                    printf("\n");
+            printf("Executando TODOS os algoritmos 1000 vezes...\n");
 
-                    printf("Selecione a opção desejada:\n");
-                    printf("1. Ordenar o vetor 1 vez.\n");
-                    printf("2. Ordenar o vetor 1000 vezes.\n");
-                    printf("3. Ordenar o vetor N vezes.\n");
-                    printf("4. Voltar\n");
+            // Execução e contagem para cada algoritmo
+            for (int i = 0; i < numExecucoes; i++) {
+                int v[TAM];
+                int v1[TAM];
 
-                    scanf("%d", &subOpcao);
+                // QuickSort com Pivô Último
+                geraVetor(v);
+                contagemComparacoes = 0;
+                quickSortUltimo(v, 0, TAM - 1);
+                comparacoesQuickSortUltimo[i] = contagemComparacoes;
 
-                    if(subOpcao == 1)
-                    {
-                        printf("Ordenando o vetor 1 vez...\n");
-                        printf("Vetor após a ordenação com último elemento como pivô\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
+                // QuickSort com Pivô Mediana de Três
+                geraVetor(v);
+                contagemComparacoes = 0;
+                quickSortMedianaDeTres(v, 0, TAM - 1);
+                comparacoesQuickSortMediana[i] = contagemComparacoes;
 
-                    else if(subOpcao == 2)
-                    {
-                        printf("Ordenando o vetor 1000 vezes...\n");
+                // ShellSort com Sequência de Knuth
+                geraVetor(v);
+                contagemComparacoes = 0;
+                shellSortKnuth(v, TAM);
+                comparacoesShellSortKnuth[i] = contagemComparacoes;
 
-                        while (subOpcao < 1000)
-                        {
-                            //quickSortUltimo();
-                            subOpcao++;
-                        }
-                        printf("Vetor após a ordenação com último elemento como pivô\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
+                // ShellSort com Sequência de Hibbard
+                geraVetor(v);
+                contagemComparacoes = 0;
+                shellSortHibbard(v, TAM);
+                comparacoesShellSortHibbard[i] = contagemComparacoes;
 
-                    else if(subOpcao == 3)
-                    {
-                        int i = 0;
-                        printf("Digite o número de vezes que deseja ordenar o vetor: ");
-                        scanf("%d", &subOpcao);
-                        printf("Ordenando o vetor %d vezes...\n", subOpcao);
+                // SelectionSort
+                geraVetor(v);
+                contagemComparacoes = 0;
+                selectionSort(v, TAM);
+                comparacoesSelectionSort[i] = contagemComparacoes;
 
-                        while (i < subOpcao)
-                        {
-                            //quickSortUltimo();
-                            i++;
-                        }
-                        printf("Vetor após a ordenação com último elemento como pivô\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
+                // Busca Sequencial
+                geraVetor(v1);  // Usa v1 para não alterar o vetor ordenado em busca binária
+                contagemComparacoes = 0;
+                BuscaSequencialAleat(v1, TAM, &contagemComparacoes);
+                comparacoesBuscaSequencial[i] = contagemComparacoes;
 
-                    else if(subOpcao == 4)
-                    {
-                        printf("Voltando...\n");
-                    }
-
-                    else
-                    {
-                        printf("Opção inválida!\n");
-                    }
-
-                    printf("Ordenando o vetor...\n");
-                    printf("Vetor após a ordenação com último elemento como pivô\n");
-                    printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    scanf("%d", &subOpcao);
-                    imprimeVetor(v, subOpcao);
-                    
-                }
+                // Busca Binária
+                contagemComparacoes = 0;
+                BuscaBinariaAleat(v, TAM, &contagemComparacoes);
+                comparacoesBuscaBinaria[i] = contagemComparacoes;
             }
+
+            // Cálculo da média, desvio padrão e total de comparações para cada algoritmo
+            double mediaQuickUltimo = calcularMedia(comparacoesQuickSortUltimo, numExecucoes);
+            double desvioQuickUltimo = calcularDesvioPadrao(comparacoesQuickSortUltimo, numExecucoes, mediaQuickUltimo);
+            int totalQuickUltimo = calcularTotalComparacoes(comparacoesQuickSortUltimo, numExecucoes);
+
+            double mediaQuickMediana = calcularMedia(comparacoesQuickSortMediana, numExecucoes);
+            double desvioQuickMediana = calcularDesvioPadrao(comparacoesQuickSortMediana, numExecucoes, mediaQuickMediana);
+            int totalQuickMediana = calcularTotalComparacoes(comparacoesQuickSortMediana, numExecucoes);
+
+            double mediaShellKnuth = calcularMedia(comparacoesShellSortKnuth, numExecucoes);
+            double desvioShellKnuth = calcularDesvioPadrao(comparacoesShellSortKnuth, numExecucoes, mediaShellKnuth);
+            int totalShellKnuth = calcularTotalComparacoes(comparacoesShellSortKnuth, numExecucoes);
+
+            double mediaShellHibbard = calcularMedia(comparacoesShellSortHibbard, numExecucoes);
+            double desvioShellHibbard = calcularDesvioPadrao(comparacoesShellSortHibbard, numExecucoes, mediaShellHibbard);
+            int totalShellHibbard = calcularTotalComparacoes(comparacoesShellSortHibbard, numExecucoes);
+
+            double mediaSelection = calcularMedia(comparacoesSelectionSort, numExecucoes);
+            double desvioSelection = calcularDesvioPadrao(comparacoesSelectionSort, numExecucoes, mediaSelection);
+            int totalSelection = calcularTotalComparacoes(comparacoesSelectionSort, numExecucoes);
+
+            double mediaBuscaSequencial = calcularMedia(comparacoesBuscaSequencial, numExecucoes);
+            double desvioBuscaSequencial = calcularDesvioPadrao(comparacoesBuscaSequencial, numExecucoes, mediaBuscaSequencial);
+            int totalBuscaSequencial = calcularTotalComparacoes(comparacoesBuscaSequencial, numExecucoes);
+
+            double mediaBuscaBinaria = calcularMedia(comparacoesBuscaBinaria, numExecucoes);
+            double desvioBuscaBinaria = calcularDesvioPadrao(comparacoesBuscaBinaria, numExecucoes, mediaBuscaBinaria);
+            int totalBuscaBinaria = calcularTotalComparacoes(comparacoesBuscaBinaria, numExecucoes);
+
+
+            // Exibição dos resultados
+            printf("\n");
+            printf("Resultados das Comparações após 1000 execuções:\n");
+
+            printf("\n");
+            printf("QuickSort (Pivô Último): Média = %.2f\n", mediaQuickUltimo);
+            printf("QuickSort (Pivô Último): Desvio Padrão = %.2f\n", desvioQuickUltimo);
+            printf("QuickSort (Pivô Último): Total = %d\n", totalQuickUltimo);
+            printf("____________________________________________________________________________\n");
+
+
+
+            printf("\n");
+            printf("QuickSort (Pivô Mediana de Três): Média = %.2f, \n", mediaQuickMediana);
+            printf("QuickSort (Pivô Mediana de Três): Desvio Padrão = %.2f\n", desvioQuickMediana);
+            printf("QuickSort (Pivô Mediana de Três): Total = %d\n", totalQuickMediana);
+            printf("____________________________________________________________________________\n");
+
+
+
+            printf("\n");
+            printf("ShellSort (Sequência de Knuth): Média = %.2f\n", mediaShellKnuth);
+            printf("ShellSort (Sequência de Knuth): Desvio Padrão = %.2f\n", desvioShellKnuth);
+            printf("ShellSort (Sequência de Knuth): Total = %d\n", totalShellKnuth);
+            printf("____________________________________________________________________________\n");
+
+
+
+            printf("\n");
+            printf("ShellSort (Sequência de Hibbard): Média = %.2f\n", mediaShellHibbard);
+            printf("ShellSort (Sequência de Hibbard): Desvio Padrão = %.2f\n", desvioShellHibbard);
+            printf("ShellSort (Sequência de Hibbard): Total = %d\n", totalShellHibbard);
+            printf("____________________________________________________________________________\n");
             
-            else if(subOpcao == 2)
-            {
-                printf("Você escolheu o QuickSort com a mediana de três como pivô.\n");
-                printf("Deseja gerar um vetor? (s/n) \n");
-                printf("\n");
-                scanf("%1s", resposta);
-                if (strcmp(resposta, "s") == 0)
-                {
-                    int v[TAM];
-                    geraVetor(v);
-                    printf("Vetor gerado com sucesso!\n");
-                    printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    scanf("%d", &subOpcao);
-                    imprimeVetor(v, subOpcao);
-                    printf("\n");
-
-                    printf("Selecione a opção desejada:\n");
-                    printf("1. Ordenar o vetor 1 vez.\n");
-                    printf("2. Ordenar o vetor 1000 vezes.\n");
-                    printf("3. Ordenar o vetor N vezes.\n");
-                    printf("4. Voltar\n");
-
-                    scanf("%d", &subOpcao);
-
-                    if(subOpcao == 1)
-                    {
-                        printf("Ordenando o vetor 1 vez...\n");
-                        printf("Vetor após a ordenação com mediana de três\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 2)
-                    {
-                        printf("Ordenando o vetor 1000 vezes...\n");
-
-                        while (subOpcao < 1000)
-                        {
-                            //quickSortMediana();
-                            subOpcao++;
-                        }
-                        printf("Vetor após a ordenação com mediana de três\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 3)
-                    {
-                        int i = 0;
-                        printf("Digite o número de vezes que deseja ordenar o vetor: ");
-                        scanf("%d", &subOpcao);
-                        printf("Ordenando o vetor %d vezes...\n", subOpcao);
-
-                        while (i < subOpcao)
-                        {
-                            //quickSortMediana();
-                            i++;
-                        }
-                        printf("Vetor após a ordenação com mediana de três\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 4)
-                    {
-                        printf("Voltando...\n");
-                    }
-
-                    else
-                    {
-                        printf("Opção inválida!\n");
-                    }
-                }
-            }
-
-            else if(subOpcao == 3)
-            {
-                printf("Você escolheu o Shell Sort com a sequência de Hibbard.\n");
-                printf("Deseja gerar um vetor? (s/n) \n");
-                printf("\n");
-                scanf("%1s", resposta);
-                if (strcmp(resposta, "s") == 0)
-                {
-                    int v[TAM];
-                    geraVetor(v);
-                    printf("Vetor gerado com sucesso!\n");
-                    printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    scanf("%d", &subOpcao);
-                    imprimeVetor(v, subOpcao);
-                    printf("\n");
-
-                    printf("Selecione a opção desejada:\n");
-                    printf("1. Ordenar o vetor 1 vez.\n");
-                    printf("2. Ordenar o vetor 1000 vezes.\n");
-                    printf("3. Ordenar o vetor N vezes.\n");
-                    printf("4. Voltar\n");
-
-                    scanf("%d", &subOpcao);
-
-                    if(subOpcao == 1)
-                    {
-                        printf("Ordenando o vetor 1 vez...\n");
-                        printf("Vetor após a ordenação com sequência de Hibbard\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 2)
-                    {
-                        printf("Ordenando o vetor 1000 vezes...\n");
-
-                        while (subOpcao < 1000)
-                        {
-                            //shellSortHibbard();
-                            subOpcao++;
-                        }
-                        printf("Vetor após a ordenação com sequência de Hibbard\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 3)
-                    {
-                        int i = 0;
-                        printf("Digite o número de vezes que deseja ordenar o vetor: ");
-                        scanf("%d", &subOpcao);
-                        printf("Ordenando o vetor %d vezes...\n", subOpcao);
-
-                        while (i < subOpcao)
-                        {
-                            //shellSortHibbard();
-                            i++;
-                        }
-                        printf("Vetor após a ordenação com sequência de Hibbard\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 4)
-                    {
-                        printf("Voltando...\n");
-                    }
-
-                    else
-                    {
-                        printf("Opção inválida!\n");
-                    }
-                    
-                }
-            }
-
-            else if(subOpcao == 4)
-            {
-                printf("Você escolheu o Shell Sort com a sequência de Knuth.\n");
-                printf("Deseja gerar um vetor? (s/n) \n");
-                printf("\n");
-                scanf("%1s", resposta);
-                if (strcmp(resposta, "s") == 0)
-                {
-                    int v[TAM];
-                    geraVetor(v);
-                    printf("Vetor gerado com sucesso!\n");
-                    printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    scanf("%d", &subOpcao);
-                    imprimeVetor(v, subOpcao);
-                    printf("\n");
-
-                    printf("Selecione a opção desejada:\n");
-                    printf("1. Ordenar o vetor 1 vez.\n");
-                    printf("2. Ordenar o vetor 1000 vezes.\n");
-                    printf("3. Ordenar o vetor N vezes.\n");
-                    printf("4. Voltar\n");
-
-                    scanf("%d", &subOpcao);
-
-                    if(subOpcao == 1)
-                    {
-                        printf("Ordenando o vetor 1 vez...\n");
-                        printf("Vetor após a ordenação com sequência de Knuth\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 2)
-                    {
-                        printf("Ordenando o vetor 1000 vezes...\n");
-
-                        while (subOpcao < 1000)
-                        {
-                            //shellSortKnuth();
-                            subOpcao++;
-                        }
-                        printf("Vetor após a ordenação com sequência de Knuth\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 3)
-                    {
-                        int i = 0;
-                        printf("Digite o número de vezes que deseja ordenar o vetor: ");
-                        scanf("%d", &subOpcao);
-                        printf("Ordenando o vetor %d vezes...\n", subOpcao);
-
-                        while (i < subOpcao)
-                        {
-                            //shellSortKnuth();
-                            i++;
-                        }
-                        printf("Vetor após a ordenação com sequência de Knuth\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 4)
-                    {
-                        printf("Voltando...\n");
-                    }
-
-                    else
-                    {
-                        printf("Opção inválida!\n");
-                    }
-                    
-                }
-            }
-
-            else if(subOpcao == 5)
-            {
-                printf("Você escolheu o Selection Sort.\n");
-                printf("Deseja gerar um vetor? (s/n) \n");
-                printf("\n");
-                scanf("%1s", resposta);
-                if (strcmp(resposta, "s") == 0)
-                {
-                    int v[TAM];
-                    geraVetor(v);
-                    printf("Vetor gerado com sucesso!\n");
-                    printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    scanf("%d", &subOpcao);
-                    imprimeVetor(v, subOpcao);
-                    printf("\n");
-
-                    printf("Selecione a opção desejada:\n");
-                    printf("1. Ordenar o vetor 1 vez.\n");
-                    printf("2. Ordenar o vetor 1000 vezes.\n");
-                    printf("3. Ordenar o vetor N vezes.\n");
-                    printf("4. Voltar\n");
-
-                    scanf("%d", &subOpcao);
-
-                    if(subOpcao == 1)
-                    {
-                        printf("Ordenando o vetor 1 vez...\n");
-                        printf("Vetor após a ordenação com selection sort\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 2)
-                    {
-                        printf("Ordenando o vetor 1000 vezes...\n");
-
-                        while (subOpcao < 1000)
-                        {
-                            //selectionSort();
-                            subOpcao++;
-                        }
-                        printf("Vetor após a ordenação com selection sort\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 3)
-                    {
-                        int i = 0;
-                        printf("Digite o número de vezes que deseja ordenar o vetor: ");
-                        scanf("%d", &subOpcao);
-                        printf("Ordenando o vetor %d vezes...\n", subOpcao);
-
-                        while (i < subOpcao)
-                        {
-                            //selectionSort();
-                            i++;
-                        }
-                        printf("Vetor após a ordenação com selection sort\n");
-                        printf("Digite o tamanho do vetor que deseja visualizar: ");
-                        scanf("%d", &subOpcao);
-                        imprimeVetor(v, subOpcao);
-                    }
-
-                    else if(subOpcao == 4)
-                    {
-                        printf("Voltando...\n");
-                    }
-
-                    else
-                    {
-                        printf("Opção inválida!\n");
-                    }
-                    
-                }
-            }
-
-            else if(subOpcao == 6)
-            {
-                printf("Voltando ao menu principal...\n");
-            }
-
-            else
-            {
-                printf("Opção inválida!\n");
-            }
-        }
-
-
-        else if(opcao == 2)
-        {
-            printf("Você escolheu a opção de busca.\n");
-            printf("Aqui você poderá escolher entre os algoritmos de busca disponíveis:\n");
+            
+            
             printf("\n");
-            printf("1. Busca Sequencial\n");
-            printf("2. Busca Binária\n");
-            printf("3. Voltar\n");
+            printf("SelectionSort: Média = %.2f\n", mediaSelection);
+            printf("SelectionSort: Desvio Padrão = %.2f\n", desvioSelection);
+            printf("SelectionSort: Total = %d\n", totalSelection);
+            printf("____________________________________________________________________________\n");
+            
 
-            scanf("%d", &subOpcao);
 
-            if(subOpcao == 1)
-            {
-                printf("Você escolheu a busca sequencial.\n");
-                printf("Deseja gerar um vetor? (s/n) \n");
-                printf("\n");
-                scanf("%1s", resposta);
-                if (strcmp(resposta, "s") == 0)
-                {
-                    int v[TAM];
-                    geraVetor(v);
-                    printf("Vetor gerado com sucesso!\n");
-                    printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    scanf("%d", &subOpcao);
-                    imprimeVetor(v, subOpcao);
-                    printf("\n");
+            printf("\n");
+            printf("Busca Sequencial: Média = %.2f\n", mediaBuscaSequencial);
+            printf("Busca Sequencial: Desvio Padrão = %.2f\n", desvioBuscaSequencial);
+            printf("Busca Sequencial: Total = %d\n", totalBuscaSequencial);
+            printf("____________________________________________________________________________\n");
+            
 
-                    printf("Selecione a opção desejada:\n");
-                    printf("1. Digitar um número para busca\n");
-                    printf("2. Gerar um número aleatório para busca\n");
+            
+            printf("\n");
+            printf("Busca Binária: Média = %.2f\n", mediaBuscaBinaria);
+            printf("Busca Binária: Desvio Padrão = %.2f\n",desvioBuscaBinaria);
+            printf("Busca Binária: Total = %d\n", totalBuscaBinaria);
+            printf("____________________________________________________________________________\n");
 
-                    scanf("%d", &subOpcao);
 
-                    if(subOpcao == 1)
-                    {
-                        printf("Selecione a opção desejada:\n");
-                        printf("1. Buscar pelo número 1 vez.\n");
-                        printf("2. Buscar pelo número 1000 vezes.\n");
-                        printf("3. Buscar pelo número N vezes.\n");
-                        printf("4. Voltar\n");
-
-                        scanf("%d", &subOpcao);
-
-                        if(subOpcao == 1)
-                        {
-                            printf("Digite o número que deseja buscar: ");
-                            scanf("%d", &subOpcao);
-                            printf("Realizando a busca sequencial...\n");
-                            printf("Elemento encontrado na posição: %d\n", subOpcao);
-                        }
-
-                        else if(subOpcao == 2)
-                        {
-                            printf("Buscando pelo número 1000 vezes...\n");
-                            printf("Digite o número que deseja buscar: ");
-                            scanf("%d", &subOpcao);
-                            printf("Realizando a busca sequencial...\n");
-
-                            while (subOpcao < 1000)
-                            {
-                                //buscaSequencial();
-                                printf("Elemento encontrado na posição: %d\n", subOpcao);
-                                subOpcao++;
-                            }
-                        }
-
-                        else if(subOpcao == 3)
-                        {
-                            int i = 0;
-                            printf("Digite o número de vezes que deseja buscar pelo número: ");
-                            scanf("%d", &subOpcao);
-                            printf("Buscando pelo número %d vezes...\n", subOpcao);
-
-                            while (i < subOpcao)
-                            {
-                                //buscaSequencial();
-                                printf("Elemento encontrado na posição: %d\n", subOpcao);
-                                i++;
-                            }
-                        }
-
-                        else if(subOpcao == 4)
-                        {
-                            printf("Voltando...\n");
-                        }
-                        
-                        else
-                        {
-                            printf("Opção inválida!\n");
-                        }
-                    }
-
-                    else if(subOpcao == 2)
-                    {
-                        printf("Selecione a opção desejada:\n");
-                        printf("1. Buscar pelo número 1 vez.\n");
-                        printf("2. Buscar pelo número 1000 vezes.\n");
-                        printf("3. Buscar pelo número N vezes.\n");
-                        printf("4. Voltar\n");
-
-                        scanf("%d", &subOpcao);
-
-                        if(subOpcao == 1)
-                        {
-                            subOpcao = geraAleatorio();
-                            printf("Número gerado aleatoriamente para busca: %d\n", subOpcao);
-                            printf("Realizando a busca sequencial 1 vez...\n");
-                            printf("Elemento encontrado na posição: %d\n", subOpcao);
-                        }
-
-                        else if(subOpcao == 2)
-                        {
-                            printf("Buscando pelo número 1000 vezes...\n");
-                            subOpcao = geraAleatorio();
-                            printf("Número gerado aleatoriamente para busca: %d\n", subOpcao);
-                            printf("Realizando a busca sequencial...\n");
-
-                            while (subOpcao < 1000)
-                            {
-                                //buscaSequencial();
-                                printf("Elemento encontrado na posição: %d\n", subOpcao);
-                                subOpcao++;
-                            }
-                        }
-
-                        else if(subOpcao == 3)
-                        {
-                            int i = 0;
-                            subOpcao = geraAleatorio();
-                            printf("Número gerado aleatoriamente para busca: %d\n", subOpcao);
-                            printf("Buscando pelo número %d vezes...\n", subOpcao);
-
-                            while (i < subOpcao)
-                            {
-                                //buscaSequencial();
-                                printf("Elemento encontrado na posição: %d\n", subOpcao);
-                                i++;
-                            }
-                        }
-
-                        else if(subOpcao == 4)
-                        {
-                            printf("Voltando...\n");
-                        }
-                        
-                        else
-                        {
-                            printf("Opção inválida!\n");
-                        }
-                    }
-
-                    else
-                    {
-                        printf("Opção inválida!\n");
-                    }
-                }
-            }
-
-            else if(subOpcao == 2)
-            {
-                printf("Você escolheu a busca binária.\n");
-                printf("Deseja gerar um vetor? (s/n) \n");
-                printf("\n");
-                scanf("%1s", resposta);
-                if (strcmp(resposta, "s") == 0)
-                {
-                    int v[TAM];
-                    geraVetor(v);
-                    printf("Vetor gerado com sucesso!\n");
-                    printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    scanf("%d", &subOpcao);
-                    imprimeVetor(v, subOpcao);
-                    printf("\n");
-
-                    printf("Selecione a opção desejada:\n");
-                    printf("1. Digitar um número para busca\n");
-                    printf("2. Gerar um número aleatório para busca\n");
-
-                    scanf("%d", &subOpcao);
-
-                    if(subOpcao == 1)
-                    {
-                        printf("Selecione a opção desejada:\n");
-                        printf("1. Buscar pelo número 1 vez.\n");
-                        printf("2. Buscar pelo número 1000 vezes.\n");
-                        printf("3. Buscar pelo número N vezes.\n");
-                        printf("4. Voltar\n");
-
-                        scanf("%d", &subOpcao);
-
-                        if(subOpcao == 1)
-                        {
-                            printf("Digite o número que deseja buscar: ");
-                            scanf("%d", &subOpcao);
-                            printf("Realizando a busca binária...\n");
-                            printf("Elemento encontrado na posição: %d\n", subOpcao);
-                        }
-
-                        else if(subOpcao == 2)
-                        {
-                            printf("Buscando pelo número 1000 vezes...\n");
-                            printf("Digite o número que deseja buscar: ");
-                            scanf("%d", &subOpcao);
-                            printf("Realizando a busca binária...\n");
-
-                            while (subOpcao < 1000)
-                            {
-                                //buscaBinaria();
-                                printf("Elemento encontrado na posição: %d\n", subOpcao);
-                                subOpcao++;
-                            }
-                        }
-
-                        else if(subOpcao == 3)
-                        {
-                            int i = 0;
-                            printf("Digite o número de vezes que deseja buscar pelo número: ");
-                            scanf("%d", &subOpcao);
-                            printf("Buscando pelo número %d vezes...\n", subOpcao);
-
-                            while (i < subOpcao)
-                            {
-                                //buscaBinaria();
-                                printf("Elemento encontrado na posição: %d\n", subOpcao);
-                                i++;
-                            }
-                        }
-
-                        else if(subOpcao == 4)
-                        {
-                            printf("Voltando...\n");
-                        }
-                        
-                        else
-                        {
-                            printf("Opção inválida!\n");
-                        }
-                    }
-
-                    else if(subOpcao == 2)
-                    {
-                        printf("Selecione a opção desejada:\n");
-                        printf("1. Buscar pelo número 1 vez.\n");
-                        printf("2. Buscar pelo número 1000 vezes.\n");
-                        printf("3. Buscar pelo número N vezes.\n");
-                        printf("4. Voltar\n");
-
-                        scanf("%d", &subOpcao);
-
-                        if(subOpcao == 1)
-                        {
-                            subOpcao = geraAleatorio();
-                            printf("Número gerado aleatoriamente para busca: %d\n", subOpcao);
-                            printf("Realizando a busca binária 1 vez...\n");
-                            printf("Elemento encontrado na posição: %d\n", subOpcao);
-                        }
-
-                        else if(subOpcao == 2)
-                        {
-                            printf("Buscando pelo número 1000 vezes...\n");
-                            subOpcao = geraAleatorio();
-                            printf("Número gerado aleatoriamente para busca: %d\n", subOpcao);
-                            printf("Realizando a busca binária...\n");
-
-                            while (subOpcao < 1000)
-                            {
-                                //buscaBinaria();
-                                printf("Elemento encontrado na posição: %d\n", subOpcao);
-                                subOpcao++;
-                            }
-                        }
-
-                        else if(subOpcao == 3)
-                        {
-                            int i = 0;
-                            subOpcao = geraAleatorio();
-                            printf("Número gerado aleatoriamente para busca: %d\n", subOpcao);
-                            printf("Buscando pelo número %d vezes...\n", subOpcao);
-
-                            while (i < subOpcao)
-                            {
-                                //buscaBinaria();
-                                printf("Elemento encontrado na posição: %d\n", subOpcao);
-                                i++;
-                            }
-                        }
-
-                        else if(subOpcao == 4)
-                        {
-                            printf("Voltando...\n");
-                        }
-                        
-                        else
-                        {
-                            printf("Opção inválida!\n");
-                        }
-                    }
-
-                    else if(subOpcao == 3)
-                    {
-                        printf("Voltando ao menu principal...\n");
-                    }
-
-                    else
-                    {
-                        printf("Opção inválida!\n");
-                    }
-                }
-            }
+            break;
         }
 
-
-        else
-        {
-            printf("Opção inválida!\n");
-        }
-
-        printf("\n");
-        printf("Selecione alguma opção:\n");
-        printf("0. Sair\n");
-        printf("1. Ordenação\n");
-        printf("2. Busca\n");
-        scanf("%d", &opcao);
+        default:
+            printf("Opção inválida! Tente novamente.\n");
+            break;
     }
 }
 
@@ -867,6 +382,7 @@ void exibirContagens(char *metodo) {
 
 
 /*================================================ [QUICK SORT] ===========================================================*/
+
 
 //                                UTILIZANDO O ÚLTIMO ELEMENTO DO VETOR COMO PIVÔ
 
@@ -899,10 +415,15 @@ void quickSortUltimo(int vetor[], int inicio, int fim)
         quickSortUltimo(vetor, indicePivo + 1, fim);
     }
 }
+
+
+
 /*===========================================================================================================*/
 /*===========================================================================================================*/
 
+
 //                              UTILIZANDO A MEDIANA DE TRÊS ELEMENTOS DO VETOR
+
 
 // Escolhe o pivô como a mediana de três (primeiro, meio e último elementos)
 int medianaDeTres(int vetor[], int inicio, int fim) 
@@ -1080,6 +601,7 @@ void realizarBuscaSequencial(int vetor[], int tamanho) {
 
     // Pergunta ao usuário se ele quer inserir um valor ou gerar um número aleatório
     do {
+        printf("\n");
         printf("Escolha uma opção:\n");
         printf("1. Digitar um número para buscar\n");
         printf("2. Gerar um número aleatório para buscar\n");
@@ -1091,10 +613,14 @@ void realizarBuscaSequencial(int vetor[], int tamanho) {
         }
     } while (opcao != 1 && opcao != 2);
 
-    if (opcao == 1) {
+    if (opcao == 1) 
+    {
+        printf("\n");
         printf("Digite o número a ser buscado: ");
         scanf("%d", &elemento);
-    } else {
+    } 
+    else 
+    {
         elemento = rand() % (MAX_VAL + 1); // Gera número aleatório entre 0 e MAX_VAL
         printf("Número gerado aleatoriamente para busca: %d\n", elemento);
     }
@@ -1103,11 +629,22 @@ void realizarBuscaSequencial(int vetor[], int tamanho) {
     posicao = buscaSequencial(vetor, tamanho, elemento, &comparacoes);
 
     // Exibe o resultado da busca
-    if (posicao != -1) {
+    if (posicao != -1) 
+    {
+        printf("\n");
         printf("Elemento %d encontrado na posição %d após %d comparações.\n", elemento, posicao, comparacoes);
-    } else {
+    } 
+    else 
         printf("Elemento %d não encontrado no vetor após %d comparações.\n", elemento, comparacoes);
-    }
+    
+}
+
+
+
+// Função para realizar a busca sequencial com número aleatório
+void BuscaSequencialAleat(int vetor[], int tamanho, int *comparacoes) {
+    int elemento = rand() % (MAX_VAL + 1); // Gera número aleatório entre 0 e MAX_VAL
+    buscaSequencial(vetor, tamanho, elemento, comparacoes);
 }
 
 
@@ -1141,11 +678,13 @@ int buscaBinaria(int vetor[], int tamanho, int elemento, int *contagemComparacoe
 }
 
 // Função para permitir consulta de elemento no vetor, com entrada ou número aleatório
-void realizarBuscaBinaria(int vetor[], int tamanho) {
+void realizarBuscaBinaria(int vetor[], int tamanho) 
+{
     int elemento, contagemComparacoes = 0, opcao;
 
     // Loop para garantir que o usuário escolha uma opção válida
     do {
+        printf("\n");
         printf("Escolha uma opção para a busca binária:\n");
         printf("1 - Digitar o elemento a ser buscado\n");
         printf("2 - Gerar aleatoriamente o elemento a ser buscado\n");
@@ -1157,10 +696,13 @@ void realizarBuscaBinaria(int vetor[], int tamanho) {
         }
     } while (opcao != 1 && opcao != 2);
 
-    if (opcao == 1) {
+    if (opcao == 1) 
+    {
         printf("Digite o elemento a ser buscado: ");
         scanf("%d", &elemento);
-    } else {
+    } 
+    else 
+    {
         elemento = rand() % (MAX_VAL + 1); // Gera número aleatório entre 0 e MAX_VAL
         printf("Elemento gerado aleatoriamente: %d\n", elemento);
     }
@@ -1169,15 +711,23 @@ void realizarBuscaBinaria(int vetor[], int tamanho) {
     int posicao = buscaBinaria(vetor, tamanho, elemento, &contagemComparacoes);
 
     // Exibe o resultado da busca
-    if (posicao != -1) {
+    if (posicao != -1) 
+    {
+        printf("\n");
         printf("Elemento encontrado na posição: %d\n", posicao);
-    } else {
+    } 
+    else 
         printf("Elemento não encontrado no vetor.\n");
-    }
     printf("Número de comparações realizadas: %d\n", contagemComparacoes);
 }
 
 
+
+// Função para realizar a busca binária com número aleatório
+void BuscaBinariaAleat(int vetor[], int tamanho, int *comparacoes) {
+    int elemento = rand() % (MAX_VAL + 1); // Gera número aleatório entre 0 e MAX_VAL
+    buscaBinaria(vetor, tamanho, elemento, comparacoes);
+}
+
+
 /*===========================================================================================================*/
-
-
