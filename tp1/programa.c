@@ -6,6 +6,7 @@
 #include "funções.h"
 
 
+
 int contagemTrocas = 0;      
 int contagemComparacoes = 0;
 
