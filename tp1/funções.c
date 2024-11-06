@@ -190,8 +190,7 @@ void program(int opcao)
         case 3:
             contagemComparacoes = 0;
             contagemTrocas = 0;
-            int escolha;
-            bool vetorGerado = false; // Variável para verificar se o vetor foi gerado
+            vetorGerado = false; // Variável para verificar se o vetor foi gerado
 
             // Loop para garantir que o vetor seja gerado antes de continuar
             while (!vetorGerado) 
