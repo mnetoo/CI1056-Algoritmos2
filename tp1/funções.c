@@ -145,26 +145,26 @@ void program(int opcao)
 
         case 2:
             int escolha;
-            bool vetorGerado = false; // Variável para verificar se o vetor foi gerado
+            
+            printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
 
-            // Loop para garantir que o vetor seja gerado antes de continuar
-            while (!vetorGerado) 
-            {
+            if (escolha == 1) 
+                geraVetor(v);
                 printf("\n");
-                printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+                printf("Deseja visualizar o vetor gerado? (1. Sim / 2. Não):\n");
                 scanf("%d", &escolha);
 
                 if (escolha == 1) 
                 {
-                    geraVetor(v);
-                    vetorGerado = true; // Atualiza para indicar que o vetor foi gerado
-                } 
-                else 
-                {
                     printf("\n");
-                    printf("É necessário gerar um vetor.\n");
+                    printf("Digite o tamanho do vetor que deseja visualizar: ");
+                    int tamanho;
+                    scanf("%d", &tamanho);
+                    imprimeVetor(v, tamanho);
                 }
-            }
+            else
+                geraVetor(v);
 
             printf("\n");
             printf("Executando QuickSort com Pivô Último...\n");
@@ -190,31 +190,31 @@ void program(int opcao)
         case 3:
             contagemComparacoes = 0;
             contagemTrocas = 0;
-            vetorGerado = false; // Variável para verificar se o vetor foi gerado
 
-            // Loop para garantir que o vetor seja gerado antes de continuar
-            while (!vetorGerado) 
-            {
+            printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+                geraVetor(v);
                 printf("\n");
-                printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+                printf("Deseja visualizar o vetor gerado? (1. Sim / 2. Não):\n");
                 scanf("%d", &escolha);
 
                 if (escolha == 1) 
                 {
-                    geraVetor(v);
-                    vetorGerado = true; // Atualiza para indicar que o vetor foi gerado
-                } 
-                else 
-                {
                     printf("\n");
-                    printf("É necessário gerar um vetor.\n");
+                    printf("Digite o tamanho do vetor que deseja visualizar: ");
+                    int tamanho;
+                    scanf("%d", &tamanho);
+                    imprimeVetor(v, tamanho);
                 }
-            }
+            else
+                geraVetor(v);
 
             printf("\n");
-            printf("Executando QuickSort com Pivô Último...\n");
+            printf("Executando QuickSort com Mediana de Três...\n");
             quickSortMedianaDeTres(v, 0, TAM - 1);
-            exibirContagens("QuickSort - Pivô Último");
+            exibirContagens("QuickSort - Pivô Mediana de Três");
 
             printf("\n");
             printf("Deseja imprimir o vetor ordenado? (1. Sim / 2. Não):\n");
@@ -235,9 +235,32 @@ void program(int opcao)
         case 4:
             contagemComparacoes = 0;
             contagemTrocas = 0;
+
+            printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+                geraVetor(v);
+            else
+                geraVetor(v);
+
             printf("Executando ShellSort com Sequência de Knuth...\n");
             shellSortKnuth(v, TAM);
             exibirContagens("ShellSort - Sequência de Knuth");
+
+            printf("\n");
+            printf("Deseja imprimir o vetor ordenado? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+            {
+                printf("\n");
+                printf("Digite o tamanho do vetor que deseja visualizar: ");
+                int tamanho;
+                scanf("%d", &tamanho);
+                imprimeVetor(v, tamanho);
+            }
+
             break;
 
 
