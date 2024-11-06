@@ -244,7 +244,21 @@ void program(int opcao)
             scanf("%d", &escolha);
 
             if (escolha == 1) 
+            {
                 geraVetor(v);
+                printf("\n");
+                printf("Deseja visualizar o vetor gerado? (1. Sim / 2. Não):\n");
+                scanf("%d", &escolha);
+
+                if (escolha == 1) 
+                {
+                    printf("\n");
+                    printf("Digite o tamanho do vetor que deseja visualizar: ");
+                    int tamanho;
+                    scanf("%d", &tamanho);
+                    imprimeVetor(v, tamanho);
+                }
+            }
             else
                 geraVetor(v);
 
@@ -271,18 +285,92 @@ void program(int opcao)
         case 5:
             contagemComparacoes = 0;
             contagemTrocas = 0;
+
+            printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+            {
+                geraVetor(v);
+                printf("\n");
+                printf("Deseja visualizar o vetor gerado? (1. Sim / 2. Não):\n");
+                scanf("%d", &escolha);
+
+                if (escolha == 1) 
+                {
+                    printf("\n");
+                    printf("Digite o tamanho do vetor que deseja visualizar: ");
+                    int tamanho;
+                    scanf("%d", &tamanho);
+                    imprimeVetor(v, tamanho);
+                }
+            }
+            else
+                geraVetor(v);
+
             printf("Executando ShellSort com Sequência de Hibbard...\n");
             shellSortHibbard(v, TAM);
             exibirContagens("ShellSort - Sequência de Hibbard");
+
+            printf("\n");
+            printf("Deseja imprimir o vetor ordenado? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+            {
+                printf("\n");
+                printf("Digite o tamanho do vetor que deseja visualizar: ");
+                int tamanho;
+                scanf("%d", &tamanho);
+                imprimeVetor(v, tamanho);
+            }
+
             break;
 
 
         case 6:
             contagemComparacoes = 0;
             contagemTrocas = 0;
+
+            printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+            {
+                geraVetor(v);
+                printf("\n");
+                printf("Deseja visualizar o vetor gerado? (1. Sim / 2. Não):\n");
+                scanf("%d", &escolha);
+
+                if (escolha == 1) 
+                {
+                    printf("\n");
+                    printf("Digite o tamanho do vetor que deseja visualizar: ");
+                    int tamanho;
+                    scanf("%d", &tamanho);
+                    imprimeVetor(v, tamanho);
+                }
+            }
+            else
+                geraVetor(v);
+
             printf("Executando SelectionSort...\n");
             selectionSort(v, TAM);
             exibirContagens("SelectionSort");
+
+            printf("\n");
+            printf("Deseja imprimir o vetor ordenado? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+            {
+                printf("\n");
+                printf("Digite o tamanho do vetor que deseja visualizar: ");
+                int tamanho;
+                scanf("%d", &tamanho);
+                imprimeVetor(v, tamanho);
+            }
+            
             break;
 
 
