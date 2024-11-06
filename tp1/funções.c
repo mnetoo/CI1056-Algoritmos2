@@ -92,7 +92,7 @@ double calcularDesvioPadrao(int valores[], int numExecucoes, double media)
 
 
 // Função auxiliar para calcular o total de comparações realizadas
-int calcularTotalComparacoes(int valores[], int numExecucoes) 
+double calcularTotalComparacoes(int valores[], int numExecucoes) 
 {
     int total = 0;  // Variável para acumular o total das comparações
 
