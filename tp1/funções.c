@@ -147,20 +147,24 @@ void program(int opcao)
         case 2:
             int escolha;
 
+            printf("\n");
             printf("Gerar Vetor? (1. Sim / 2. Não):\n");
             scanf("%d", &escolha);
 
             if (escolha == 1) 
                 geraVetor(v);
         
+            printf("\n");
             printf("Executando QuickSort com Pivô Último...\n");
             quickSortUltimo(v, 0, TAM - 1);
             exibirContagens("QuickSort - Pivô Último");
+            printf("\n");
             printf("Deseja imprimir o vetor ordenado? 1. Sim / 2. Não):\n");
             scanf("%d", &escolha);
 
             if (escolha == 1) 
-            {
+            {   
+                printf("\n");
                 printf("Digite o tamanho do vetor que deseja visualizar: ");
                 int tamanho;
                 scanf("%d", &tamanho);
