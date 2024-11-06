@@ -1,46 +1,54 @@
-#ifndef FUNCOES_H
+#ifndef FUNCOES_H       // Define guardas para evitar inclusão múltipla do arquivo de cabeçalho
 #define FUNCOES_H
 
+#include <stdio.h>      // Biblioteca para entrada e saída
+#include <stdlib.h>     // Biblioteca para alocação de memória e utilidades
+#include <time.h>       // Biblioteca para manipulação de data e hora (para geração de números aleatórios)
+#include <string.h>     // Biblioteca para manipulação de strings
+#include <stdbool.h>    // Biblioteca para tipos booleanos (ex: true, false)
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
-#include <stdbool.h>
+#define TAM 1024        // Define o tamanho máximo do vetor
+#define MAX_VAL 2048    // Define o valor máximo dos números aleatórios no vetor
+#define MAX_NUM 100000  // Define o valor máximo para números aleatórios em certas funções
 
-
-#define TAM 1024    // Tamanho do vetor
-#define MAX_VAL 2048 // Valor máximo para os números aleatórios
-#define MAX_NUM 100000 // Valor máximo para os números aleatórios
-
-
-extern int contagemTrocas; // Variáveis globais
-extern int contagemComparacoes; // Variáveis globais
+// Variáveis globais que rastreiam o número de trocas e comparações realizadas em algoritmos de ordenação e busca
+extern int contagemTrocas;
+extern int contagemComparacoes;
 
 
 /*================================================================================================================*/
 
 
-// Função que preenche um vetor de inteiros com valores aleatórios entre 0 e 2048
+//                       Funções utilitárias para operações comuns no programa
+
+
+// Preenche um vetor de inteiros com valores aleatórios entre 0 e MAX_VAL
 void geraVetor(int vetor[]);
 
-// Função que exibe o menu de opções
+// Exibe o menu de opções ao usuário e retorna a opção selecionada
 int menu();
 
-// Função que executa a operação com base na opção escolhida
+// Executa a operação correspondente à opção escolhida pelo usuário
 void program(int opcao);
 
-// Função que imprime um vetor de inteiros
+// Imprime todos os elementos de um vetor de inteiros
 void imprimeVetor(int vetor[], int n);
 
-// Função que troca o conteúdo de duas variáveis
+// Troca o conteúdo de duas variáveis inteiras
 void trocar(int *a, int *b);
 
-//exibe as contagens de trocas e comparações
+// Exibe o número de trocas e comparações realizadas em um método de ordenação ou busca específico
 void exibirContagens(char *metodo);
 
-// Função para imprimir uma linha de separação
-void linhaSeparacao();
+// Função auxiliar para calcular a média de um conjunto de valores
+double calcularMedia(int valores[], int numExecucoes);
+
+// Função auxiliar para calcular o desvio padrão de um conjunto de valores
+double calcularDesvioPadrao(int valores[], int numExecucoes, double media);
+
+// Função auxiliar para calcular o total de comparações realizadas
+calcularTotalComparacoes(int valores[], int numExecucoes);
+
 
 
 /*================================================================================================================*/
@@ -49,17 +57,24 @@ void linhaSeparacao();
                     /* QUICK SORT UTILIZANDO O ÚLTIMO ELEMENTO DO VETOR COMO PIVÔ */
 
 
+// Particiona o vetor usando o último elemento como pivô e retorna a posição do pivô após a partição
 int particionarUltimo(int vetor[], int inicio, int fim);
 
+// Ordena o vetor usando Quick Sort com o último elemento como pivô
 void quickSortUltimo(int vetor[], int inicio, int fim);
+
 
 
                     /* QUICK SORT UTILIZANDO A MEDIANA DE TRÊS ELEMENTOS DO VETOR */
 
+
+// Particiona o vetor usando a mediana de três (primeiro, meio e último elementos) como pivô
 int particionarMedianaDeTres(int vetor[], int inicio, int fim);
 
+// Encontra a mediana de três elementos (primeiro, meio e último) e coloca o pivô no fim do intervalo
 int medianaDeTres(int vetor[], int inicio, int fim);
 
+// Ordena o vetor usando Quick Sort com a mediana de três como pivô
 void quickSortMedianaDeTres(int vetor[], int inicio, int fim);
 
 
@@ -68,37 +83,58 @@ void quickSortMedianaDeTres(int vetor[], int inicio, int fim);
 
                     /* SHELL SORT UTILIZANDO A SEQUÊNCIA DE HIBBARD */ 
 
+
+// Ordena o vetor usando Shell Sort com a sequência de Hibbard para o cálculo do gap
 void shellSortHibbard(int vetor[], int n);
+
 
 
                     /* SHELL SORT UTILIZANDO A SEQUÊNCIA DE KNUTH */
 
+
+// Ordena o vetor usando Shell Sort com a sequência de Knuth para o cálculo do gap
 void shellSortKnuth(int vetor[], int n);
 
 
 /*================================================================================================================*/
 
 
+                                    /* SELECTION SORT */
+
+// Ordena o vetor utilizando o método Selection Sort
 void selectionSort(int vetor[], int n);
+
 
 
 /*================================================================================================================*/
 
 
+                                    /* BUSCA SEQUENCIAL */
+
+
+// Realiza uma busca sequencial para encontrar um elemento no vetor, com contagem de comparações
 int buscaSequencial(int vetor[], int tamanho, int elemento, int *contagemComparacoes);
 
+// Função para realizar a busca sequencial com entrada do usuário ou número aleatório
 void realizarBuscaSequencial(int vetor[], int tamanho);
 
+// Realiza a busca sequencial para um número aleatório no vetor
 void BuscaSequencialAleat(int vetor[], int tamanho, int *comparacoes);
 
 
 /*================================================================================================================*/
 
 
+                                    /* BUSCA BINÁRIA */            
+
+
+// Realiza uma busca binária em um vetor ordenado, com contagem de comparações
 int buscaBinaria(int vetor[], int tamanho, int elemento, int *contagemComparacoes);
 
+// Função para realizar a busca binária com entrada do usuário ou número aleatório
 void realizarBuscaBinaria(int vetor[], int tamanho);
 
+// Realiza a busca binária para um número aleatório no vetor
 void BuscaBinariaAleat(int vetor[], int tamanho, int *comparacoes);
 
 
@@ -106,4 +142,4 @@ void BuscaBinariaAleat(int vetor[], int tamanho, int *comparacoes);
 /*================================================================================================================*/
 
 
-#endif
+#endif // Fim do define guardas para evitar inclusão múltipla
