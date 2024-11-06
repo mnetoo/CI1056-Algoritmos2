@@ -1,15 +1,29 @@
+/*
+
+--------    PROTOTIPAÇÃO DAS FUNÇÕES DE ORDENAÇÃO E BUSCA    --------
+--------    Algoritmos de Ordenação: QuickSort, ShellSort, SelectionSort    --------
+--------    Algoritmos de Busca: Sequencial, Binária    --------
+--------    TRABALHO PRÁTICO - PROF. DR .ELIAS     --------
+
+*/
+
+
 #ifndef FUNCOES_H       // Define guardas para evitar inclusão múltipla do arquivo de cabeçalho
 #define FUNCOES_H
 
-#include <stdio.h>      // Biblioteca para entrada e saída
-#include <stdlib.h>     // Biblioteca para alocação de memória e utilidades
-#include <time.h>       // Biblioteca para manipulação de data e hora (para geração de números aleatórios)
-#include <string.h>     // Biblioteca para manipulação de strings
-#include <stdbool.h>    // Biblioteca para tipos booleanos (ex: true, false)
+
+#include <stdio.h>    // Biblioteca para funções de entrada e saída (ex: printf, scanf)
+#include <stdlib.h>   // Biblioteca para alocação de memória, conversões e outras funções utilitárias
+#include <string.h>   // Biblioteca para manipulação de strings
+#include <time.h>     // Biblioteca para manipulação de data e hora (ex: função time)
+#include <stdbool.h>  // Biblioteca para tipos booleanos (ex: true, false)
+#include <math.h>     // Biblioteca para funções matemáticas (ex: sqrt, pow)
+
 
 #define TAM 1024        // Define o tamanho máximo do vetor
 #define MAX_VAL 2048    // Define o valor máximo dos números aleatórios no vetor
 #define MAX_NUM 100000  // Define o valor máximo para números aleatórios em certas funções
+
 
 // Variáveis globais que rastreiam o número de trocas e comparações realizadas em algoritmos de ordenação e busca
 extern int contagemTrocas;
