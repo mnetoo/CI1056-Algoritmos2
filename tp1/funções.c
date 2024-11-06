@@ -262,6 +262,7 @@ void program(int opcao)
             else
                 geraVetor(v);
 
+            printf("\n");
             printf("Executando ShellSort com Sequência de Knuth...\n");
             shellSortKnuth(v, TAM);
             exibirContagens("ShellSort - Sequência de Knuth");
@@ -308,6 +309,7 @@ void program(int opcao)
             else
                 geraVetor(v);
 
+            printf("\n");
             printf("Executando ShellSort com Sequência de Hibbard...\n");
             shellSortHibbard(v, TAM);
             exibirContagens("ShellSort - Sequência de Hibbard");
@@ -354,6 +356,7 @@ void program(int opcao)
             else
                 geraVetor(v);
 
+            printf("\n");
             printf("Executando SelectionSort...\n");
             selectionSort(v, TAM);
             exibirContagens("SelectionSort");
@@ -370,7 +373,7 @@ void program(int opcao)
                 scanf("%d", &tamanho);
                 imprimeVetor(v, tamanho);
             }
-            
+
             break;
 
 
