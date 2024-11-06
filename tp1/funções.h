@@ -61,7 +61,7 @@ double calcularMedia(int valores[], int numExecucoes);
 double calcularDesvioPadrao(int valores[], int numExecucoes, double media);
 
 // Função auxiliar para calcular o total de comparações realizadas
-calcularTotalComparacoes(int valores[], int numExecucoes);
+double calcularTotalComparacoes(int valores[], int numExecucoes);
 
 
 
