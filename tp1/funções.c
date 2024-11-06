@@ -150,6 +150,7 @@ void program(int opcao)
             scanf("%d", &escolha);
 
             if (escolha == 1) 
+            {
                 geraVetor(v);
                 printf("\n");
                 printf("Deseja visualizar o vetor gerado? (1. Sim / 2. Não):\n");
@@ -163,6 +164,7 @@ void program(int opcao)
                     scanf("%d", &tamanho);
                     imprimeVetor(v, tamanho);
                 }
+            }
             else
                 geraVetor(v);
 
@@ -195,6 +197,7 @@ void program(int opcao)
             scanf("%d", &escolha);
 
             if (escolha == 1) 
+            {
                 geraVetor(v);
                 printf("\n");
                 printf("Deseja visualizar o vetor gerado? (1. Sim / 2. Não):\n");
@@ -208,6 +211,7 @@ void program(int opcao)
                     scanf("%d", &tamanho);
                     imprimeVetor(v, tamanho);
                 }
+            }
             else
                 geraVetor(v);
 
