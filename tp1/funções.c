@@ -190,9 +190,46 @@ void program(int opcao)
         case 3:
             contagemComparacoes = 0;
             contagemTrocas = 0;
-            printf("Executando QuickSort com Pivô Mediana de Três...\n");
+            int escolha;
+            bool vetorGerado = false; // Variável para verificar se o vetor foi gerado
+
+            // Loop para garantir que o vetor seja gerado antes de continuar
+            while (!vetorGerado) 
+            {
+                printf("\n");
+                printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+                scanf("%d", &escolha);
+
+                if (escolha == 1) 
+                {
+                    geraVetor(v);
+                    vetorGerado = true; // Atualiza para indicar que o vetor foi gerado
+                } 
+                else 
+                {
+                    printf("\n");
+                    printf("É necessário gerar um vetor.\n");
+                }
+            }
+
+            printf("\n");
+            printf("Executando QuickSort com Pivô Último...\n");
             quickSortMedianaDeTres(v, 0, TAM - 1);
-            exibirContagens("QuickSort - Pivô Mediana de Três");
+            exibirContagens("QuickSort - Pivô Último");
+
+            printf("\n");
+            printf("Deseja imprimir o vetor ordenado? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+            {
+                printf("\n");
+                printf("Digite o tamanho do vetor que deseja visualizar: ");
+                int tamanho;
+                scanf("%d", &tamanho);
+                imprimeVetor(v, tamanho);
+            }
+
             break;
 
 
