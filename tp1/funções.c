@@ -379,6 +379,30 @@ void program(int opcao)
 
         case 7:
             contagemComparacoes = 0;
+
+            printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+            {
+                geraVetor(v1);
+                printf("\n");
+                printf("Deseja visualizar o vetor gerado? (1. Sim / 2. Não):\n");
+                scanf("%d", &escolha);
+
+                if (escolha == 1) 
+                {
+                    printf("\n");
+                    printf("Digite o tamanho do vetor que deseja visualizar: ");
+                    int tamanho;
+                    scanf("%d", &tamanho);
+                    imprimeVetor(v1, tamanho);
+                }
+            }
+            else
+                geraVetor(v1);
+
+            printf("\n");
             printf("Executando Busca Sequencial...\n");
             realizarBuscaSequencial(v1, TAM);
             break;
@@ -386,6 +410,34 @@ void program(int opcao)
 
         case 8:
             contagemComparacoes = 0;
+
+            printf("Gerar Vetor? (1. Sim / 2. Não):\n");
+            scanf("%d", &escolha);
+
+            if (escolha == 1) 
+            {
+                geraVetor(v);
+                quickSortMedianaDeTres(v, 0, TAM - 1);
+                printf("\n");
+                printf("Deseja visualizar o vetor gerado (Ordenado)? (1. Sim / 2. Não):\n");
+                scanf("%d", &escolha);
+
+                if (escolha == 1) 
+                {
+                    printf("\n");
+                    printf("Digite o tamanho do vetor que deseja visualizar: ");
+                    int tamanho;
+                    scanf("%d", &tamanho);
+                    imprimeVetor(v, tamanho);
+                }
+            }
+            else
+            {
+                geraVetor(v);
+                quickSortMedianaDeTres(v, 0, TAM - 1);
+            }
+
+            printf("\n");
             printf("Executando Busca Binária...\n");
             realizarBuscaBinaria(v, TAM);
             break;
@@ -401,10 +453,12 @@ void program(int opcao)
             int comparacoesBuscaSequencial[numExecucoes];
             int comparacoesBuscaBinaria[numExecucoes];
 
+            printf("\n");
             printf("Executando TODOS os algoritmos 1000 vezes...\n");
 
             // Execução e contagem para cada algoritmo
-            for (int i = 0; i < numExecucoes; i++) {
+            for (int i = 0; i < numExecucoes; i++) 
+            {
                 int v[TAM];
                 int v1[TAM];
 
