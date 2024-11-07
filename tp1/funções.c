@@ -437,8 +437,6 @@ void program(int opcao)
                     imprimeVetor(v1, tamanho);
                 }
             }
-            else
-                geraVetor(v1);
 
             printf("\n");
             printf("Executando Busca Sequencial...\n");
@@ -470,10 +468,7 @@ void program(int opcao)
                 }
             }
             else
-            {
-                geraVetor(v);
                 quickSortMedianaDeTres(v, 0, TAM - 1);
-            }
 
             printf("\n");
             printf("Executando Busca Binária...\n");
