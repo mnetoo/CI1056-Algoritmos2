@@ -71,11 +71,11 @@ double calcularTotalComparacoes(int valores[], int numExecucoes);
                     /* QUICK SORT UTILIZANDO O ÚLTIMO ELEMENTO DO VETOR COMO PIVÔ */
 
 
-// Particiona o vetor usando o último elemento como pivô e retorna a posição do pivô após a partição
-int particionarUltimo(int vetor[], int inicio, int fim);
+// Particiona o vetor usando um elemento aleatório como pivô e retorna o índice do pivô
+int particionarAleatorio(int vetor[], int inicio, int fim);
 
-// Ordena o vetor usando Quick Sort com o último elemento como pivô
-void quickSortUltimo(int vetor[], int inicio, int fim);
+// Ordena o vetor usando Quick Sort com um elemento aleatório como pivô
+void quickSortAleatorio(int vetor[], int inicio, int fim);
 
 
 

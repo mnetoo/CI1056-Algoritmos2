@@ -134,7 +134,7 @@ int menu()
     printf("\n");
     printf("0. Sair\n");
     printf("1. Gerar Vetor\n");
-    printf("2. QuickSort - Pivô Último\n");
+    printf("2. QuickSort - Pivô Aleatório\n");
     printf("3. QuickSort - Pivô Mediana de Três\n");
     printf("4. ShellSort - Sequência de Knuth\n");
     printf("5. ShellSort - Sequência de Hibbard\n");
@@ -207,9 +207,9 @@ void program(int opcao)
                 geraVetor(v);
 
             printf("\n");
-            printf("Executando QuickSort com Pivô Último...\n");
-            quickSortUltimo(v, 0, TAM - 1);
-            exibirContagens("QuickSort - Pivô Último");
+            printf("Executando QuickSort com Pivô Aleatório...\n");
+            quickSortAleatorio(v, 0, TAM - 1);
+            exibirContagens("QuickSort - Pivô Aleatório");
 
             printf("\n");
             printf("Deseja imprimir o vetor ordenado? (1. Sim / 2. Não):\n");
@@ -483,7 +483,7 @@ void program(int opcao)
         case 9: 
         {
             const int numExecucoes = 1000;
-            int comparacoesQuickSortUltimo[numExecucoes];
+            int comparacoesQuickSortAleatorio[numExecucoes];
             int comparacoesQuickSortMediana[numExecucoes];
             int comparacoesShellSortKnuth[numExecucoes];
             int comparacoesShellSortHibbard[numExecucoes];
@@ -500,11 +500,11 @@ void program(int opcao)
                 int v[TAM];
                 int v1[TAM];
 
-                // QuickSort com Pivô Último
+                // QuickSort com Pivô Aleatório
                 geraVetor(v);
                 contagemComparacoes = 0;
-                quickSortUltimo(v, 0, TAM - 1);
-                comparacoesQuickSortUltimo[i] = contagemComparacoes;
+                quickSortAleatorio(v, 0, TAM - 1);
+                comparacoesQuickSortAleatorio[i] = contagemComparacoes;
 
                 // QuickSort com Pivô Mediana de Três
                 geraVetor(v);
@@ -543,9 +543,9 @@ void program(int opcao)
             }
 
             // Cálculo da média, desvio padrão e total de comparações para cada algoritmo
-            double mediaQuickUltimo = calcularMedia(comparacoesQuickSortUltimo, numExecucoes);
-            double desvioQuickUltimo = calcularDesvioPadrao(comparacoesQuickSortUltimo, numExecucoes, mediaQuickUltimo);
-            int totalQuickUltimo = calcularTotalComparacoes(comparacoesQuickSortUltimo, numExecucoes);
+            double mediaQuickAleatorio = calcularMedia(comparacoesQuickSortAleatorio, numExecucoes);
+            double desvioQuickAleatorio = calcularDesvioPadrao(comparacoesQuickSortAleatorio, numExecucoes, mediaQuickAleatorio);
+            int totalQuickAleatorio = calcularTotalComparacoes(comparacoesQuickSortAleatorio, numExecucoes);
 
             double mediaQuickMediana = calcularMedia(comparacoesQuickSortMediana, numExecucoes);
             double desvioQuickMediana = calcularDesvioPadrao(comparacoesQuickSortMediana, numExecucoes, mediaQuickMediana);
@@ -577,9 +577,9 @@ void program(int opcao)
             printf("Resultados das Comparações após 1000 execuções:\n");
 
             printf("\n");
-            printf("QuickSort (Pivô Último): Média = %.2f\n", mediaQuickUltimo);
-            printf("QuickSort (Pivô Último): Desvio Padrão = %.2f\n", desvioQuickUltimo);
-            printf("QuickSort (Pivô Último): Total = %d\n", totalQuickUltimo);
+            printf("QuickSort (Pivô Aleatório): Média = %.2f\n", mediaQuickAleatorio);
+            printf("QuickSort (Pivô Aleatório): Desvio Padrão = %.2f\n", desvioQuickAleatorio);
+            printf("QuickSort (Pivô Aleatório): Total = %d\n", totalQuickAleatorio);
             printf("____________________________________________________________________________\n");
 
 
@@ -671,17 +671,23 @@ void exibirContagens(char *metodo)
 /*================================================ [QUICK SORT] ===========================================================*/
 
 
-//                                UTILIZANDO O ÚLTIMO ELEMENTO DO VETOR COMO PIVÔ
+//                                UTILIZANDO UM ELEMENTO ALEATÓRIO DO VETOR COMO PIVÔ
 
 
-// Função que particiona o vetor de forma que os elementos menores que o pivô fiquem à esquerda e os maiores à direita do pivô. 
-// O último elemento do vetor é escolhido como pivô.
-int particionarUltimo(int vetor[], int inicio, int fim) 
+// Função que particiona o vetor de forma que os elementos menores que o pivô fiquem à esquerda e os maiores à direita do pivô.
+// O pivô é escolhido aleatoriamente.
+int particionarAleatorio(int vetor[], int inicio, int fim) 
 {
-    int pivo = vetor[fim];  // último elemento
+    // Escolhe um índice aleatório entre inicio e fim
+    int indicePivoAleatorio = inicio + rand() % (fim - inicio + 1);
+    
+    // Troca o elemento aleatório com o Aleatório elemento para usá-lo como pivô
+    trocar(&vetor[indicePivoAleatorio], &vetor[fim]);
+
+    int pivo = vetor[fim];  // Define o pivô como o elemento agora na posição 'fim'
     int indiceMenor = inicio - 1;  // Inicializa o índice do menor elemento
 
-    // Percorre o vetor do início até o penúltimo elemento (fim - 1), comparando cada elemento com o pivô
+    // Percorre o vetor do início até o penAleatório elemento (fim - 1), comparando cada elemento com o pivô
     for (int i = inicio; i < fim; i++) 
     {   
         contagemComparacoes++;  // Conta cada comparação feita entre o elemento e o pivô
@@ -698,20 +704,19 @@ int particionarUltimo(int vetor[], int inicio, int fim)
     return indiceMenor + 1;
 }
 
-
-// Função que implementa o algoritmo de ordenação QuickSort utilizando o último elemento como pivô
-void quickSortUltimo(int vetor[], int inicio, int fim) 
+// Função que implementa o algoritmo de ordenação QuickSort utilizando um pivô aleatório
+void quickSortAleatorio(int vetor[], int inicio, int fim) 
 {
     // A recursão só continua se houver mais de um elemento a ser ordenado
     if (inicio < fim) {
         // Particiona o vetor e encontra o índice do pivô
-        int indicePivo = particionarUltimo(vetor, inicio, fim);
+        int indicePivo = particionarAleatorio(vetor, inicio, fim);
         
         // Ordena recursivamente os elementos à esquerda do pivô
-        quickSortUltimo(vetor, inicio, indicePivo - 1);
+        quickSortAleatorio(vetor, inicio, indicePivo - 1);
         
         // Ordena recursivamente os elementos à direita do pivô
-        quickSortUltimo(vetor, indicePivo + 1, fim);
+        quickSortAleatorio(vetor, indicePivo + 1, fim);
     }
 }
 
@@ -722,7 +727,7 @@ void quickSortUltimo(int vetor[], int inicio, int fim)
 //                              UTILIZANDO A MEDIANA DE TRÊS ELEMENTOS DO VETOR
 
 
-// Função que escolhe o pivô como a mediana de três elementos: o primeiro, o meio e o último elemento do vetor.
+// Função que escolhe o pivô como a mediana de três elementos: o primeiro, o meio e o Aleatório elemento do vetor.
 int medianaDeTres(int vetor[], int inicio, int fim) 
 {
     // Calcula o índice do meio do vetor
@@ -731,9 +736,9 @@ int medianaDeTres(int vetor[], int inicio, int fim)
     // Ordena os elementos nas posições início, meio e fim para garantir que o pivô será a mediana
     // Se o primeiro elemento for maior que o do meio, troca-os
     if (vetor[inicio] > vetor[meio]) trocar(&vetor[inicio], &vetor[meio]);
-    // Se o primeiro elemento for maior que o último, troca-os
+    // Se o primeiro elemento for maior que o Aleatório, troca-os
     if (vetor[inicio] > vetor[fim]) trocar(&vetor[inicio], &vetor[fim]);
-    // Se o meio for maior que o último, troca-os
+    // Se o meio for maior que o Aleatório, troca-os
     if (vetor[meio] > vetor[fim]) trocar(&vetor[meio], &vetor[fim]);
 
     // Coloca o valor da mediana (elemento do meio) na posição final do vetor
