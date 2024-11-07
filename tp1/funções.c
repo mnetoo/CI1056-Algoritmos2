@@ -803,43 +803,49 @@ void quickSortMedianaDeTres(int vetor[], int inicio, int fim)
 //                                      UTILIZANDO A SEQUÊNCIA DE KNUTH
 
 
-#include <math.h> // Para a função pow()
-
 // Função que ordena o vetor utilizando o método ShellSort com a sequência de Knuth
 void shellSortKnuth(int vetor[], int n) 
 {
-    // Calcula o maior gap de Knuth que seja menor que o tamanho do vetor usando a fórmula: h = (3^k - 1) / 2
+    // Inicializa o gap como 1
     int gap = 1;
-    int k = 1;
-    while ((3 * gap + 1) < n) {
-        gap = (int)((pow(3, k) - 1) / 2); // Aplica a fórmula de Knuth para gap
-        k++;
+    
+    // Calcula o maior gap de Knuth que seja menor que o tamanho do vetor
+    // A sequência de Knuth é gerada pela fórmula: gap = 3 * gap + 1
+    // O loop continua até que o gap seja maior que o tamanho do vetor dividido por 3
+    while (gap < n / 3) {
+        gap = 3 * gap + 1;
     }
 
     // Enquanto o gap for maior que zero, executa o algoritmo de ordenação
-    while (gap > 0) {
+    // A cada iteração, o gap diminui de acordo com a fórmula: gap = (gap - 1) / 3
+    for (; gap > 0; gap = (gap - 1) / 3) {
         
         // Ordena os elementos com o gap atual
+        // O loop começa com o índice igual ao gap e percorre o vetor
         for (int i = gap; i < n; i++) {
-            int temp = vetor[i];
+            int temp = vetor[i];  // Armazena o valor do elemento atual
             int j;
             
-            // Movimenta os elementos de acordo com o gap
-            for (j = i; j >= gap && vetor[j - gap] > temp; j -= gap) {
+            // Compara o elemento com o anterior que está no índice i - gap
+            // Se o elemento à esquerda (vetor[j - gap]) for maior que o elemento atual, ele é movido para a posição à direita
+            for (j = i; j >= gap; j -= gap) {
                 contagemComparacoes++;  // Incrementa a contagem de comparações
-                vetor[j] = vetor[j - gap];  // Move o valor para a direita
+                if (vetor[j - gap] > temp) {
+                    vetor[j] = vetor[j - gap];  // Move o valor para a direita
+                } else {
+                    break;  // Se não for maior, sai do loop
+                }
             }
             
-            vetor[j] = temp;
-            contagemTrocas++;  // Incrementa a contagem de trocas
+            // Se houve movimentação, coloca o elemento na posição correta
+            // Isso ocorre se a comparação indicou que o valor atual deveria ser inserido em uma posição anterior
+            if (j != i) {  // Verifica se houve alguma troca
+                vetor[j] = temp;
+                contagemTrocas++;  // Incrementa a contagem de trocas
+            }
         }
-
-        // Reduz o gap de acordo com a sequência de Knuth
-        k--;
-        gap = (int)((pow(3, k) - 1) / 2);
     }
 }
-
 
 
 /*===========================================================================================================*/
