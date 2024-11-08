@@ -121,6 +121,8 @@ int menu()
     // Mensagem de boas-vindas exibida apenas na primeira execução
     if (primeiraExecucao) 
     {
+        printf("\n");
+        printf("\n");
         printf("                                    ||||   |||||  |   |      |     |  |||  |    |  ||||   |||  !\n");
         printf("                                    |   |  |      || ||      |     |   |   ||   |  |   | |   | !\n");
         printf("                                    |   |  |      | | |       |   |    |   | |  |  |   | |   | !\n");
