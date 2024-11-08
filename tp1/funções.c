@@ -121,9 +121,16 @@ int menu()
     // Mensagem de boas-vindas exibida apenas na primeira execução
     if (primeiraExecucao) 
     {
+        printf("                                    BBBB   EEEEE  M   M      V     V  III  N    N  DDDD   OOO  !\n");
+        printf("                                    B   B  E      MM MM      V     V   I   NN   N  D   D O   O !\n");
+        printf("                                    BBBB   EEEE   M M M       V   V    I   N N  N  D   D O   O !\n");
+        printf("                                    B   B  E      M   M        V V     I   N  N N  D   D O   O !\n");
+        printf("                                    BBBB   EEEEE  M   M         V     III  N   NN  DDDD   OOO  !\n");
         printf("\n");
-        printf("                                    Bem-vindo ao Trabalho Prático da disciplina de Algoritmos II!\n");
-        printf("                                    Aqui você verá a implementação de algoritmos de ordenação e busca.\n");
+        printf("\n");
+
+        printf("Bem-vindo ao Trabalho Prático da disciplina de Algoritmos II!\n");
+        printf("Aqui você verá a implementação de algoritmos de ordenação e busca.\n");
         printf("\n");
         printf("Selecione a operação desejada:\n");
         printf("\n");
@@ -132,13 +139,13 @@ int menu()
 
     // Exibe o menu de opções
     printf("\n");
-    printf("0. Sair\n");
+    printf("0. Parar Programa\n");
     printf("1. Gerar Vetor\n");
-    printf("2. QuickSort - Pivô Aleatório\n");
-    printf("3. QuickSort - Pivô Mediana de Três\n");
-    printf("4. ShellSort - Sequência de Knuth\n");
-    printf("5. ShellSort - Sequência de Hibbard\n");
-    printf("6. SelectionSort - Quadrático\n");
+    printf("2. QuickSort - [Pivô Aleatório]\n");
+    printf("3. QuickSort - [Pivô Mediana de Três]\n");
+    printf("4. ShellSort - [Sequência de Knuth]\n");
+    printf("5. ShellSort - [Sequência de Hibbard]\n");
+    printf("6. SelectionSort - [Quadrático]\n");
     printf("7. Busca Sequencial\n");
     printf("8. Busca Binária\n");
     printf("9. Executar todos os algoritmos 1000 vezes\n");
@@ -203,8 +210,6 @@ void program(int opcao)
                     imprimeVetor(v, tamanho);
                 }
             }
-            else
-                geraVetor(v);
 
             printf("\n");
             printf("Executando QuickSort com Pivô Aleatório...\n");
@@ -250,8 +255,6 @@ void program(int opcao)
                     imprimeVetor(v, tamanho);
                 }
             }
-            else
-                geraVetor(v);
 
             printf("\n");
             printf("Executando QuickSort com Mediana de Três...\n");
@@ -297,8 +300,6 @@ void program(int opcao)
                     imprimeVetor(v, tamanho);
                 }
             }
-            else
-                geraVetor(v);
 
             printf("\n");
             printf("Executando ShellSort com Sequência de Knuth...\n");
@@ -344,8 +345,6 @@ void program(int opcao)
                     imprimeVetor(v, tamanho);
                 }
             }
-            else
-                geraVetor(v);
 
             printf("\n");
             printf("Executando ShellSort com Sequência de Hibbard...\n");
@@ -391,8 +390,6 @@ void program(int opcao)
                     imprimeVetor(v, tamanho);
                 }
             }
-            else
-                geraVetor(v);
 
             printf("\n");
             printf("Executando SelectionSort...\n");
