@@ -123,13 +123,13 @@ int menu()
     {
         printf("\n");
         printf("\n");
-        printf("                                    ||||   |||||  |   |      |     |  |||  |    |  ||||   |||  !\n");
-        printf("                                    |   |  |      || ||      |     |   |   ||   |  |   | |   | !\n");
-        printf("                                    |   |  |      | | |       |   |    |   | |  |  |   | |   | !\n");
-        printf("                                    ||||   ||||   |   |       |   |    |   | |  |  |   | |   | !\n");
-        printf("                                    |   |  |      |   |        | |     |   |  | |  |   | |   | !\n");
-        printf("                                    |   |  |      |   |        | |     |   |  | |  |   | |   | !\n");
-        printf("                                    ||||   |||||  |   |         |     |||  |   ||  ||||   |||  !\n");
+        printf("                                    ||||   |||||  |   |      |     |  |||  |    |  ||||   |||  |!\n");
+        printf("                                    |   |  |      || ||      |     |   |   ||   |  |   | |   | |\n");
+        printf("                                    |   |  |      | | |       |   |    |   | |  |  |   | |   | |\n");
+        printf("                                    ||||   ||||   |   |       |   |    |   | |  |  |   | |   | |\n");
+        printf("                                    |   |  |      |   |        | |     |   |  | |  |   | |   | |\n");
+        printf("                                    |   |  |      |   |        | |     |   |  | |  |   | |   | |\n");
+        printf("                                    ||||   |||||  |   |         |     |||  |   ||  ||||   |||  .\n");
         printf("\n");
 
         printf("                                Trabalho Prático (Ordenação e Pesquisa) - Disciplina de Algoritmos II\n");
