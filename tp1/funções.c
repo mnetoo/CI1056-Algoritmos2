@@ -123,6 +123,7 @@ int menu()
     {
         printf("\n");
         printf("\n");
+        printf("\n");
         printf("                                    ||||   |||||  |   |      |     |  |||  |    |  ||||   |||  !\n");
         printf("                                    |   |  |      || ||      |     |   |   ||   |  |   | |   | !\n");
         printf("                                    |   |  |      | | |       |   |    |   | |  |  |   | |   | !\n");
@@ -132,9 +133,12 @@ int menu()
         printf("                                    ||||   |||||  |   |         |     |||  |   ||  ||||   |||  !\n");
         printf("\n");
         printf("\n");
+        printf("\n");
 
-        printf("Trabalho Prático (Ordenação e Pesquisa - Disciplina de Algoritmos II - Prof. Dr. Elias Procópio Duarte Jínior!\n");
-        printf("Aqui você verá a implementação de algoritmos de ordenação e busca.\n");
+        printf("                                    Trabalho Prático (Ordenação e Pesquisa - Disciplina de Algoritmos II\n");
+        printf("                                                  Prof. Dr. Elias Procópio Duarte Jínior!\n");
+        printf("\n");
+        printf("                                             Implementação de algoritmos de ordenação e busca.\n");
         printf("\n");
         printf("Selecione a operação desejada:\n");
         printf("\n");
