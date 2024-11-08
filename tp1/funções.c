@@ -121,15 +121,17 @@ int menu()
     // Mensagem de boas-vindas exibida apenas na primeira execução
     if (primeiraExecucao) 
     {
-        printf("                                    BBBB   EEEEE  M   M      V     V  III  N    N  DDDD   OOO  !\n");
-        printf("                                    B   B  E      MM MM      V     V   I   NN   N  D   D O   O !\n");
-        printf("                                    BBBB   EEEE   M M M       V   V    I   N N  N  D   D O   O !\n");
-        printf("                                    B   B  E      M   M        V V     I   N  N N  D   D O   O !\n");
-        printf("                                    BBBB   EEEEE  M   M         V     III  N   NN  DDDD   OOO  !\n");
+        printf("                                    ||||   |||||  |   |      |     |  |||  |    |  ||||   |||  !\n");
+        printf("                                    |   |  |      || ||      |     |   |   ||   |  |   | |   | !\n");
+        printf("                                    |   |  |      | | |       |   |    |   | |  |  |   | |   | !\n");
+        printf("                                    ||||   ||||   |   |       |   |    |   | |  |  |   | |   | !\n");
+        printf("                                    |   |  |      |   |        | |     |   |  | |  |   | |   | !\n");
+        printf("                                    |   |  |      |   |        | |     |   |  | |  |   | |   | !\n");
+        printf("                                    ||||   |||||  |   |         |     |||  |   ||  ||||   |||  !\n");
         printf("\n");
         printf("\n");
 
-        printf("Bem-vindo ao Trabalho Prático da disciplina de Algoritmos II!\n");
+        printf("Trabalho Prático (Ordenação e Pesquisa - Disciplina de Algoritmos II - Prof. Dr. Elias Procópio Duarte Jínior!\n");
         printf("Aqui você verá a implementação de algoritmos de ordenação e busca.\n");
         printf("\n");
         printf("Selecione a operação desejada:\n");
