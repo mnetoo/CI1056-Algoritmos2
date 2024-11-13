@@ -18,6 +18,11 @@
 #include <math.h>
 #include "funções.h" 
 
+int v[TAM];
+int v1[TAM];
+int copiav [TAM];
+int copiav1 [TAM];
+bool vetorGerado = false;  // Variável para controlar se o vetor foi gerado
 
 
 /*===========================================================================================================*/
@@ -34,6 +39,7 @@ void geraVetor(int vetor[])
         // Atribui um valor aleatório a cada posição do vetor
         // rand() % (MAX_VAL + 1) gera um número entre 0 e MAX_VAL (incluindo ambos)
         vetor[i] = rand() % (MAX_VAL + 1);
+        memcpy(copiav, v, TAM * sizeof(int));
     }
 }
 
@@ -133,7 +139,7 @@ int menu()
         printf("\n");
 
         printf("                                Trabalho Prático (Ordenação e Pesquisa) - Disciplina de Algoritmos II\n");
-        printf("                                             Prof. Dr. Elias Procópio Duarte Jínior!\n");
+        printf("                                             Prof. Dr. Elias Procópio Duarte Júnior!\n");
         printf("\n");
         printf("                                        Implementação de algoritmos de ordenação e busca.\n");
         printf("\n");
@@ -169,7 +175,7 @@ int menu()
 
 // Função para executar a operação com base na opção escolhida
 void program(int opcao) 
-{
+{            
     switch (opcao) 
     {
         case 0:
@@ -178,24 +184,32 @@ void program(int opcao)
 
 
         case 1:
-            int v[TAM];
-            int v1[TAM];
-
             printf("Vetor gerado com sucesso...\n");
+
+
             geraVetor(v);
+            vetorGerado = true;
 
             for(int i = 0; i < TAM; i++)
                 v1[i] = v[i];
 
             printf("Digite o tamanho do vetor que deseja visualizar: ");
-            int tamanho;
-            scanf("%d", &tamanho);
-            imprimeVetor(v, tamanho);
+            int n;
+            scanf("%d", &n);
+            imprimeVetor(v, n);
             break;
+
 
         case 2:
             int escolha;
+
+            if (!vetorGerado) 
+            {
+                printf("Vetor não gerado! Por favor, gere um vetor antes de executar o algoritmo.\n");
+                break;
+            }
             
+            printf("\n");
             printf("Gerar Vetor? (1. Sim / 2. Não):\n");
             scanf("%d", &escolha);
 
@@ -210,15 +224,15 @@ void program(int opcao)
                 {
                     printf("\n");
                     printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    int tamanho;
-                    scanf("%d", &tamanho);
-                    imprimeVetor(v, tamanho);
+                    int n;
+                    scanf("%d", &n);
+                    imprimeVetor(copiav, n);
                 }
             }
 
             printf("\n");
             printf("Executando QuickSort com Pivô Aleatório...\n");
-            quickSortAleatorio(v, 0, TAM - 1);
+            quickSortAleatorio(copiav, 0, TAM - 1);
             exibirContagens("QuickSort - Pivô Aleatório");
 
             printf("\n");
@@ -229,17 +243,22 @@ void program(int opcao)
             {
                 printf("\n");
                 printf("Digite o tamanho do vetor que deseja visualizar: ");
-                int tamanho;
-                scanf("%d", &tamanho);
-                imprimeVetor(v, tamanho);
+                int n;
+                scanf("%d", &n);
+                imprimeVetor(copiav, n);
             }
-
             break;
 
 
         case 3:
             contagemComparacoes = 0;
             contagemTrocas = 0;
+
+            if (!vetorGerado) 
+            {
+                printf("Vetor não gerado! Por favor, gere um vetor antes de executar o algoritmo.\n");
+                break;
+            }
 
             printf("Gerar Vetor? (1. Sim / 2. Não):\n");
             scanf("%d", &escolha);
@@ -255,15 +274,16 @@ void program(int opcao)
                 {
                     printf("\n");
                     printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    int tamanho;
-                    scanf("%d", &tamanho);
-                    imprimeVetor(v, tamanho);
+                    int n;
+                    scanf("%d", &n);
+                    imprimeVetor(copiav, n);
                 }
             }
 
             printf("\n");
+            memcpy(copiav, v, TAM * sizeof(int));
             printf("Executando QuickSort com Mediana de Três...\n");
-            quickSortMedianaDeTres(v, 0, TAM - 1);
+            quickSortMedianaDeTres(copiav, 0, TAM - 1);
             exibirContagens("QuickSort - Pivô Mediana de Três");
 
             printf("\n");
@@ -274,17 +294,22 @@ void program(int opcao)
             {
                 printf("\n");
                 printf("Digite o tamanho do vetor que deseja visualizar: ");
-                int tamanho;
-                scanf("%d", &tamanho);
-                imprimeVetor(v, tamanho);
+                int n;
+                scanf("%d", &n);
+                imprimeVetor(copiav, n);
             }
-
             break;
 
 
         case 4:
             contagemComparacoes = 0;
             contagemTrocas = 0;
+
+            if (!vetorGerado) 
+            {
+                printf("Vetor não gerado! Por favor, gere um vetor antes de executar o algoritmo.\n");
+                break;
+            }
 
             printf("Gerar Vetor? (1. Sim / 2. Não):\n");
             scanf("%d", &escolha);
@@ -300,15 +325,16 @@ void program(int opcao)
                 {
                     printf("\n");
                     printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    int tamanho;
-                    scanf("%d", &tamanho);
-                    imprimeVetor(v, tamanho);
+                    int n;
+                    scanf("%d", &n);
+                    imprimeVetor(copiav, n);
                 }
             }
 
             printf("\n");
+            memcpy(copiav, v, TAM * sizeof(int));
             printf("Executando ShellSort com Sequência de Knuth...\n");
-            shellSortKnuth(v, TAM);
+            shellSortKnuth(copiav, TAM);
             exibirContagens("ShellSort - Sequência de Knuth");
 
             printf("\n");
@@ -319,17 +345,22 @@ void program(int opcao)
             {
                 printf("\n");
                 printf("Digite o tamanho do vetor que deseja visualizar: ");
-                int tamanho;
-                scanf("%d", &tamanho);
-                imprimeVetor(v, tamanho);
+                int n;
+                scanf("%d", &n);
+                imprimeVetor(copiav, n);
             }
-
             break;
 
 
         case 5:
             contagemComparacoes = 0;
             contagemTrocas = 0;
+
+            if (!vetorGerado) 
+            {
+                printf("Vetor não gerado! Por favor, gere um vetor antes de executar o algoritmo.\n");
+                break;
+            }
 
             printf("Gerar Vetor? (1. Sim / 2. Não):\n");
             scanf("%d", &escolha);
@@ -345,15 +376,16 @@ void program(int opcao)
                 {
                     printf("\n");
                     printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    int tamanho;
-                    scanf("%d", &tamanho);
-                    imprimeVetor(v, tamanho);
+                    int n;
+                    scanf("%d", &n);
+                    imprimeVetor(copiav, n);
                 }
             }
 
             printf("\n");
+            memcpy(copiav, v, TAM * sizeof(int));
             printf("Executando ShellSort com Sequência de Hibbard...\n");
-            shellSortHibbard(v, TAM);
+            shellSortHibbard(copiav, TAM);
             exibirContagens("ShellSort - Sequência de Hibbard");
 
             printf("\n");
@@ -364,9 +396,9 @@ void program(int opcao)
             {
                 printf("\n");
                 printf("Digite o tamanho do vetor que deseja visualizar: ");
-                int tamanho;
-                scanf("%d", &tamanho);
-                imprimeVetor(v, tamanho);
+                int n;
+                scanf("%d", &n);
+                imprimeVetor(copiav, n);
             }
 
             break;
@@ -375,6 +407,12 @@ void program(int opcao)
         case 6:
             contagemComparacoes = 0;
             contagemTrocas = 0;
+
+            if (!vetorGerado) 
+            {
+                printf("Vetor não gerado! Por favor, gere um vetor antes de executar o algoritmo.\n");
+                break;
+            }
 
             printf("Gerar Vetor? (1. Sim / 2. Não):\n");
             scanf("%d", &escolha);
@@ -390,15 +428,16 @@ void program(int opcao)
                 {
                     printf("\n");
                     printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    int tamanho;
-                    scanf("%d", &tamanho);
-                    imprimeVetor(v, tamanho);
+                    int n;
+                    scanf("%d", &n);
+                    imprimeVetor(copiav, n);
                 }
             }
 
             printf("\n");
+            memcpy(copiav, v, TAM * sizeof(int));
             printf("Executando SelectionSort...\n");
-            selectionSort(v, TAM);
+            selectionSort(copiav, TAM);
             exibirContagens("SelectionSort");
 
             printf("\n");
@@ -409,9 +448,9 @@ void program(int opcao)
             {
                 printf("\n");
                 printf("Digite o tamanho do vetor que deseja visualizar: ");
-                int tamanho;
-                scanf("%d", &tamanho);
-                imprimeVetor(v, tamanho);
+                int n;
+                scanf("%d", &n);
+                imprimeVetor(copiav, n);
             }
 
             break;
@@ -419,6 +458,12 @@ void program(int opcao)
 
         case 7:
             contagemComparacoes = 0;
+
+            if (!vetorGerado) 
+            {
+                printf("Vetor não gerado! Por favor, gere um vetor antes de executar o algoritmo.\n");
+                break;
+            }
 
             printf("Gerar Vetor? (1. Sim / 2. Não):\n");
             scanf("%d", &escolha);
@@ -434,9 +479,9 @@ void program(int opcao)
                 {
                     printf("\n");
                     printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    int tamanho;
-                    scanf("%d", &tamanho);
-                    imprimeVetor(v1, tamanho);
+                    int n;
+                    scanf("%d", &n);
+                    imprimeVetor(v1, n);
                 }
             }
 
@@ -449,13 +494,19 @@ void program(int opcao)
         case 8:
             contagemComparacoes = 0;
 
+            if (!vetorGerado) 
+            {
+                printf("Vetor não gerado! Por favor, gere um vetor antes de executar o algoritmo.\n");
+                break;
+            }
+
             printf("Gerar Vetor? (1. Sim / 2. Não):\n");
             scanf("%d", &escolha);
 
             if (escolha == 1) 
             {
                 geraVetor(v);
-                quickSortMedianaDeTres(v, 0, TAM - 1);
+                quickSortMedianaDeTres(copiav, 0, TAM - 1);
                 printf("\n");
                 printf("Deseja visualizar o vetor gerado (Ordenado)? (1. Sim / 2. Não):\n");
                 scanf("%d", &escolha);
@@ -464,18 +515,20 @@ void program(int opcao)
                 {
                     printf("\n");
                     printf("Digite o tamanho do vetor que deseja visualizar: ");
-                    int tamanho;
-                    scanf("%d", &tamanho);
-                    imprimeVetor(v, tamanho);
+                    int n;
+                    scanf("%d", &n);
+                    imprimeVetor(copiav, n);
                 }
             }
             else
-                quickSortMedianaDeTres(v, 0, TAM - 1);
+                quickSortMedianaDeTres(copiav, 0, TAM - 1);
 
             printf("\n");
+            memcpy(copiav, v, TAM * sizeof(int));
             printf("Executando Busca Binária...\n");
-            realizarBuscaBinaria(v, TAM);
+            realizarBuscaBinaria(copiav, TAM);
             break;
+
 
         case 9: 
         {
