@@ -83,6 +83,3 @@ void PrintHeap (struct heap_t *heap)
         printf("%d ", heap->data[i]);
     printf("\n");
 }
-
-
-#
